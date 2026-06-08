@@ -1396,14 +1396,10 @@ section { padding: 96px 0; }
     }
     btn.textContent = 'Submitting…'; btn.style.opacity = '.6'; btn.disabled = true;
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
+      const res = await fetch('https://hook.eu1.make.com/3cq0wpstoudqs6dhfs7w1cas1pgewfu2', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'anthropic-beta': 'mcp-client-2025-04-04' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514', max_tokens: 500,
-          messages: [{ role: 'user', content: 'Use the notion-create-pages tool to add a waitlist entry. Parent data_source_id: "af78ca22-9951-48ed-aa04-08df9da23ef8". Properties — Name: "' + firstName + '", Last Name: "' + lastName + '", Work Email: "' + email + '", Company: "' + company + '", Role: "' + role + '", Status: "New". Create it now.' }],
-          mcp_servers: [{ type: 'url', url: 'https://mcp.notion.com/mcp', name: 'notion' }]
-        })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstName, lastName, email, company, role })
       });
       if (res.ok) {
         document.getElementById('wl-form').style.display = 'none';
