@@ -4,6 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Superhuman Systems — The AI-Native Product Operating System</title>
+  <meta name="description" content="Superhuman Systems is the AI-native product operating system. A team of agents reads your stack, builds a legible context layer your whole org can see, and works proactively every cycle." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23080C18'/%3E%3Ctext x='16' y='23' font-family='Barlow Condensed,Arial,sans-serif' font-size='22' font-weight='900' text-anchor='middle' fill='%231A6BF0'%3ES%3C/text%3E%3C/svg%3E" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Superhuman Systems" />
+  <meta property="og:title" content="Superhuman Systems — The AI-Native Product Operating System" />
+  <meta property="og:description" content="A team of AI agents reads your stack, builds a legible context layer your whole org can see, and works proactively every cycle." />
+  <meta property="og:url" content="https://www.superhumansystems.ai/" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Superhuman Systems — The AI-Native Product Operating System" />
+  <meta name="twitter:description" content="A team of AI agents reads your stack, builds a legible context layer your whole org can see, and works proactively every cycle." />
   <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&family=Syne+Mono&display=swap" rel="stylesheet" />
   <style>
 
@@ -477,22 +487,22 @@ section { padding: 96px 0; }
     --line:#14213C;
     --line-soft:#0F1A30;
     --ink:#F0F4FF;
-    --muted:#7A89B8;
+    --muted:#7A8FAD;
     --muted-2:#46557F;
     --faint:#2A3558;
-    --blue:#4A88FF;
-    --purple:#AA44FF;
-    --teal:#2DD9C4;
+    --blue:#1A6BF0;
+    --purple:#7B35E8;
+    --teal:#00C4A3;
     --amber:#F5A623;
     --magenta:#E054C4;
-    --grad:linear-gradient(120deg,#4A88FF 18%,#AA44FF 82%);
+    --grad:linear-gradient(120deg,#1A6BF0 18%,#7B35E8 82%);
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{
     background:
-      radial-gradient(1200px 700px at 78% -8%, rgba(74,136,255,.10), transparent 60%),
-      radial-gradient(1000px 600px at 8% 12%, rgba(170,68,255,.08), transparent 55%),
+      radial-gradient(1200px 700px at 78% -8%, rgba(26,107,240,.10), transparent 60%),
+      radial-gradient(1000px 600px at 8% 12%, rgba(123,53,232,.08), transparent 55%),
       var(--bg);
     color:var(--ink);
     font-family:'Barlow Condensed',sans-serif;
@@ -560,7 +570,7 @@ section { padding: 96px 0; }
   .loop-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:34px;align-items:stretch}
   .loop-copy{display:flex;flex-direction:column}
   .loop-stage{
-    background:radial-gradient(120% 120% at 30% 0%, rgba(74,136,255,.06), transparent 60%),var(--panel);
+    background:radial-gradient(120% 120% at 30% 0%, rgba(26,107,240,.06), transparent 60%),var(--panel);
     border:1px solid var(--line-soft);border-radius:22px;padding:30px;position:relative;
   }
   .loop-svg{width:100%;height:auto;display:block}
@@ -570,12 +580,12 @@ section { padding: 96px 0; }
   }
   .loop-copy h3 em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
   .loop-copy p{color:var(--muted);font-size:17px;margin-top:16px;max-width:46ch;font-weight:300}
-  .meter{margin-top:26px;flex:1 1 auto;display:flex;flex-direction:column;background:radial-gradient(120% 120% at 30% 0%, rgba(74,136,255,.06), transparent 60%),var(--panel);border:1px solid var(--line-soft);border-radius:22px;padding:22px 24px;position:relative}
+  .meter{margin-top:26px;flex:1 1 auto;display:flex;flex-direction:column;background:radial-gradient(120% 120% at 30% 0%, rgba(26,107,240,.06), transparent 60%),var(--panel);border:1px solid var(--line-soft);border-radius:22px;padding:22px 24px;position:relative}
   .meter .row{display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:11px;letter-spacing:1px;color:var(--muted-2);text-transform:uppercase}
   .meter .row b{color:var(--ink);font-weight:500}
   .bars{display:flex;gap:5px;margin-top:14px;align-items:flex-end;flex:1 1 auto;min-height:56px}
-  .bars i{flex:1;background:linear-gradient(180deg,var(--blue),rgba(74,136,255,.15));border-radius:3px 3px 0 0;opacity:.85}
-  .bars i:nth-child(n+9){background:linear-gradient(180deg,var(--purple),rgba(170,68,255,.18))}
+  .bars i{flex:1;background:linear-gradient(180deg,var(--blue),rgba(26,107,240,.15));border-radius:3px 3px 0 0;opacity:.85}
+  .bars i:nth-child(n+9){background:linear-gradient(180deg,var(--purple),rgba(123,53,232,.18))}
   .meter .cap{font-family:var(--font-mono);font-size:10.5px;color:var(--muted-2);margin-top:12px;letter-spacing:.5px}
   .meter .cap b{color:var(--teal);font-weight:500}
 
@@ -603,9 +613,9 @@ section { padding: 96px 0; }
   .ping b{color:#E6ECFF;font-weight:500}
 
   /* accent helpers */
-  .a-blue .ico{background:rgba(74,136,255,.12);color:var(--blue)} .a-blue .ico{box-shadow:inset 0 0 0 1px rgba(74,136,255,.25)}
-  .a-teal .ico{background:rgba(45,217,196,.12);color:var(--teal);box-shadow:inset 0 0 0 1px rgba(45,217,196,.25)}
-  .a-purple .ico{background:rgba(170,68,255,.12);color:var(--purple);box-shadow:inset 0 0 0 1px rgba(170,68,255,.25)}
+  .a-blue .ico{background:rgba(26,107,240,.12);color:var(--blue)} .a-blue .ico{box-shadow:inset 0 0 0 1px rgba(26,107,240,.25)}
+  .a-teal .ico{background:rgba(0,196,163,.12);color:var(--teal);box-shadow:inset 0 0 0 1px rgba(0,196,163,.25)}
+  .a-purple .ico{background:rgba(123,53,232,.12);color:var(--purple);box-shadow:inset 0 0 0 1px rgba(123,53,232,.25)}
   .a-magenta .ico{background:rgba(224,84,196,.12);color:var(--magenta);box-shadow:inset 0 0 0 1px rgba(224,84,196,.25)}
   .a-amber .ico{background:rgba(245,166,35,.12);color:var(--amber);box-shadow:inset 0 0 0 1px rgba(245,166,35,.25)}
   .a-blue .dot{background:var(--blue)} .a-teal .dot{background:var(--teal)}
@@ -1000,9 +1010,9 @@ section { padding: 96px 0; }
       <h4>Where decisions already live</h4>
       <div class="tiles">
         <div class="tile"><span class="gl" style="background:rgba(240,244,255,.08)"><svg viewBox="0 0 24 24" fill="none" stroke="#C7D2F0" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span><span>Notion</span></div>
-        <div class="tile"><span class="gl" style="background:rgba(74,136,255,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#4A88FF" stroke-width="2"><path d="M4 18c4-7 12-7 16 0M4 6c4 7 12 7 16 0"/></svg></span><span>Confluence</span></div>
-        <div class="tile"><span class="gl" style="background:rgba(45,217,196,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#2DD9C4" stroke-width="2"><path d="M12 3l8 14H4z"/><path d="M9 17l3-5 3 5"/></svg></span><span>Google Drive</span></div>
-        <div class="tile"><span class="gl" style="background:rgba(170,68,255,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#AA44FF" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18"/></svg></span><span>SharePoint</span></div>
+        <div class="tile"><span class="gl" style="background:rgba(26,107,240,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#1A6BF0" stroke-width="2"><path d="M4 18c4-7 12-7 16 0M4 6c4 7 12 7 16 0"/></svg></span><span>Confluence</span></div>
+        <div class="tile"><span class="gl" style="background:rgba(0,196,163,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#00C4A3" stroke-width="2"><path d="M12 3l8 14H4z"/><path d="M9 17l3-5 3 5"/></svg></span><span>Google Drive</span></div>
+        <div class="tile"><span class="gl" style="background:rgba(123,53,232,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#7B35E8" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18"/></svg></span><span>SharePoint</span></div>
       </div>
     </div>
 
@@ -1010,9 +1020,9 @@ section { padding: 96px 0; }
       <span class="ck">Planning</span>
       <h4>Where the roadmap moves</h4>
       <div class="tiles">
-        <div class="tile"><span class="gl" style="background:rgba(74,136,255,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#4A88FF" stroke-width="2"><path d="M12 2v9l7 4M12 11l-7 4"/><circle cx="12" cy="12" r="9"/></svg></span><span>Jira</span></div>
-        <div class="tile"><span class="gl" style="background:rgba(170,68,255,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#AA44FF" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 4v16"/></svg></span><span>Linear</span></div>
-        <div class="tile"><span class="gl" style="background:rgba(45,217,196,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#2DD9C4" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M10 4v16"/></svg></span><span>Productboard</span></div>
+        <div class="tile"><span class="gl" style="background:rgba(26,107,240,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#1A6BF0" stroke-width="2"><path d="M12 2v9l7 4M12 11l-7 4"/><circle cx="12" cy="12" r="9"/></svg></span><span>Jira</span></div>
+        <div class="tile"><span class="gl" style="background:rgba(123,53,232,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#7B35E8" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 4v16"/></svg></span><span>Linear</span></div>
+        <div class="tile"><span class="gl" style="background:rgba(0,196,163,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#00C4A3" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M10 4v16"/></svg></span><span>Productboard</span></div>
         <div class="tile"><span class="gl" style="background:rgba(245,166,35,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2"><circle cx="7" cy="12" r="3"/><circle cx="17" cy="7" r="3"/><circle cx="17" cy="17" r="3"/></svg></span><span>Asana</span></div>
       </div>
     </div>
@@ -1021,10 +1031,10 @@ section { padding: 96px 0; }
       <span class="ck">Communication</span>
       <h4>Where context gets lost</h4>
       <div class="tiles">
-        <div class="tile"><span class="gl" style="background:rgba(170,68,255,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#AA44FF" stroke-width="2"><path d="M8 8h8v8H8z"/><path d="M8 4v4M16 16v4M4 16h4M16 8h4"/></svg></span><span>Slack</span></div>
-        <div class="tile"><span class="gl" style="background:rgba(74,136,255,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#4A88FF" stroke-width="2"><circle cx="9" cy="9" r="4"/><path d="M15 7a4 4 0 0 1 0 8M3 20a6 6 0 0 1 12 0M15 20a6 6 0 0 1 6 0"/></svg></span><span>Teams</span></div>
-        <div class="tile"><span class="gl" style="background:rgba(45,217,196,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#2DD9C4" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><span>Gmail</span></div>
-        <div class="tile"><span class="gl" style="background:rgba(74,136,255,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#4A88FF" stroke-width="2"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3z"/></svg></span><span>Zoom</span></div>
+        <div class="tile"><span class="gl" style="background:rgba(123,53,232,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#7B35E8" stroke-width="2"><path d="M8 8h8v8H8z"/><path d="M8 4v4M16 16v4M4 16h4M16 8h4"/></svg></span><span>Slack</span></div>
+        <div class="tile"><span class="gl" style="background:rgba(26,107,240,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#1A6BF0" stroke-width="2"><circle cx="9" cy="9" r="4"/><path d="M15 7a4 4 0 0 1 0 8M3 20a6 6 0 0 1 12 0M15 20a6 6 0 0 1 6 0"/></svg></span><span>Teams</span></div>
+        <div class="tile"><span class="gl" style="background:rgba(0,196,163,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#00C4A3" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><span>Gmail</span></div>
+        <div class="tile"><span class="gl" style="background:rgba(26,107,240,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#1A6BF0" stroke-width="2"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3z"/></svg></span><span>Zoom</span></div>
       </div>
     </div>
 
@@ -1042,13 +1052,13 @@ section { padding: 96px 0; }
       <svg class="loop-svg" viewBox="0 0 400 400" role="img" aria-label="Closed-loop context engine">
         <defs>
           <linearGradient id="ring" x1="0" y1="0" x2="400" y2="400" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#4A88FF"/><stop offset="1" stop-color="#AA44FF"/>
+            <stop offset="0" stop-color="#1A6BF0"/><stop offset="1" stop-color="#7B35E8"/>
           </linearGradient>
           <radialGradient id="core" cx="50%" cy="50%" r="50%">
             <stop offset="0" stop-color="#1A2B57"/><stop offset="1" stop-color="#0B1225"/>
           </radialGradient>
           <linearGradient id="sweepg" x1="200" y1="60" x2="200" y2="200" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#4A88FF" stop-opacity=".9"/><stop offset="1" stop-color="#4A88FF" stop-opacity="0"/>
+            <stop offset="0" stop-color="#1A6BF0" stop-opacity=".9"/><stop offset="1" stop-color="#1A6BF0" stop-opacity="0"/>
           </linearGradient>
         </defs>
 
@@ -1060,21 +1070,21 @@ section { padding: 96px 0; }
         <!-- rotating sweep -->
         <g class="sweep">
           <path d="M200 200 L200 60 A140 140 0 0 1 296 104 Z" fill="url(#sweepg)" opacity=".22"/>
-          <line x1="200" y1="200" x2="200" y2="60" stroke="#4A88FF" stroke-width="2" opacity=".7"/>
+          <line x1="200" y1="200" x2="200" y2="60" stroke="#1A6BF0" stroke-width="2" opacity=".7"/>
         </g>
 
         <!-- stage nodes -->
         <g font-family="'Syne Mono', monospace" font-size="11" fill="#AEBCE6" text-anchor="middle">
           <!-- top: READ -->
-          <circle class="pulse-node" cx="200" cy="60" r="6" fill="#4A88FF"/>
+          <circle class="pulse-node" cx="200" cy="60" r="6" fill="#1A6BF0"/>
           <text x="200" y="40" fill="#E6ECFF">READ</text>
           <text x="200" y="54" font-size="8.5" fill="#46557F">ingest signal</text>
           <!-- right: BUILD -->
-          <circle class="pulse-node" cx="340" cy="200" r="6" fill="#AA44FF" style="animation-delay:.8s"/>
+          <circle class="pulse-node" cx="340" cy="200" r="6" fill="#7B35E8" style="animation-delay:.8s"/>
           <text x="340" y="176" fill="#E6ECFF">BUILD</text>
           <text x="340" y="190" font-size="8.5" fill="#46557F">legible context</text>
           <!-- bottom: ACT -->
-          <circle class="pulse-node" cx="200" cy="340" r="6" fill="#2DD9C4" style="animation-delay:1.6s"/>
+          <circle class="pulse-node" cx="200" cy="340" r="6" fill="#00C4A3" style="animation-delay:1.6s"/>
           <text x="200" y="364" fill="#E6ECFF">ACT</text>
           <text x="200" y="378" font-size="8.5" fill="#46557F">proactive work</text>
           <!-- left: CAPTURE -->
@@ -1097,7 +1107,7 @@ section { padding: 96px 0; }
                  fill="none" stroke="url(#ring)" stroke-width="1.5" opacity=".6"/>
         <text x="200" y="190" text-anchor="middle" font-family="'Syne Mono', monospace" font-size="9" letter-spacing="1.5" fill="#46557F">CONTEXT LAYER</text>
         <text x="200" y="214" text-anchor="middle" font-family="Barlow Condensed, sans-serif" font-weight="900" font-size="26" fill="#E6ECFF">Cycle 12</text>
-        <text x="200" y="232" text-anchor="middle" font-family="'Syne Mono', monospace" font-size="8.5" fill="#2DD9C4">847 docs · confidence ↑</text>
+        <text x="200" y="232" text-anchor="middle" font-family="'Syne Mono', monospace" font-size="8.5" fill="#00C4A3">847 docs · confidence ↑</text>
       </svg>
     </div>
 
