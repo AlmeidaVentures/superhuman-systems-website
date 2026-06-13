@@ -466,38 +466,176 @@ section { padding: 96px 0; }
 }
 .collab-note em { font-style: normal; color: #E8EDF8; }
 
-/* ─── HOW IT WORKS ─────────────────────────────────────────────────── */
-.hiw { background: var(--deep); }
-.hiw-steps {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
-  margin-top: 56px; position: relative;
-}
-.hiw-steps::before {
-  content: ''; position: absolute; top: 36px; left: 12%; right: 12%; height: 1px;
-  background: linear-gradient(90deg, var(--blue), var(--teal), var(--purple));
-}
-.hiw-step { padding: 0 20px; text-align: center; }
-.hiw-num {
-  width: 72px; height: 72px; border-radius: 50%;
-  background: var(--void); border: 1px solid var(--rim);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-head); font-size: 26px; font-weight: 900;
-  margin: 0 auto 22px; position: relative; z-index: 1;
-}
-.hiw-step:nth-child(1) .hiw-num { border-color: var(--blue); color: var(--blue); }
-.hiw-step:nth-child(2) .hiw-num { border-color: var(--teal); color: var(--teal); }
-.hiw-step:nth-child(3) .hiw-num { border-color: var(--purple); color: var(--purple); }
-.hiw-step:nth-child(4) .hiw-num { border-color: var(--coral); color: var(--coral); }
-.hiw-phase { font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; }
-.hiw-title { font-family: var(--font-head); font-size: 20px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; }
-.hiw-body  { font-size: 13px; color: var(--muted); line-height: 1.6; }
-.metrics-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 52px; }
-.metric-card {
-  background: var(--void); border: 1px solid var(--rim); border-radius: 12px;
-  padding: 24px 28px; display: flex; align-items: center; gap: 18px;
-}
-.metric-num { font-family: var(--font-head); font-size: 38px; font-weight: 900; line-height: 1; flex-shrink: 0; }
-.metric-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+/* ─── HOW IT WORKS (v2) ─────────────────────────────────────────────────── */
+
+  :root{
+    --bg:#07091A;
+    --panel:#0B1225;
+    --panel-2:#0C1628;
+    --line:#14213C;
+    --line-soft:#0F1A30;
+    --ink:#F0F4FF;
+    --muted:#7A89B8;
+    --muted-2:#46557F;
+    --faint:#2A3558;
+    --blue:#4A88FF;
+    --purple:#AA44FF;
+    --teal:#2DD9C4;
+    --amber:#F5A623;
+    --magenta:#E054C4;
+    --grad:linear-gradient(120deg,#4A88FF 18%,#AA44FF 82%);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:
+      radial-gradient(1200px 700px at 78% -8%, rgba(74,136,255,.10), transparent 60%),
+      radial-gradient(1000px 600px at 8% 12%, rgba(170,68,255,.08), transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'Barlow Condensed',sans-serif;
+    font-weight:300;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.5;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:96px 28px 110px}
+
+  /* ── section heading ── */
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;font-weight:500;
+    font-size:11px;letter-spacing:4px;text-transform:uppercase;
+    color:var(--blue);display:inline-flex;align-items:center;gap:10px;margin-bottom:22px;
+  }
+  .eyebrow::before{content:"";width:26px;height:1px;background:linear-gradient(90deg,var(--blue),transparent)}
+  h2.section-title{
+    font-family:'Barlow Condensed',sans-serif;font-weight:900;
+    font-size:clamp(38px,6vw,68px);line-height:.96;letter-spacing:-.5px;text-transform:uppercase;
+    max-width:18ch;
+  }
+  h2.section-title em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .lede{color:var(--muted);font-size:clamp(17px,2.2vw,21px);max-width:62ch;margin-top:22px;font-weight:300}
+
+  /* ── movement label ── */
+  .movement{display:flex;align-items:baseline;gap:16px;margin:78px 0 26px}
+  .movement .num{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:2px;color:var(--muted-2);
+    border:1px solid var(--line);border-radius:6px;padding:3px 9px;
+  }
+  .movement h3{
+    font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(20px,2.6vw,28px);
+    letter-spacing:-.2px;text-transform:none;
+  }
+  .movement .tag{
+    margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;
+    text-transform:uppercase;color:var(--muted-2);align-self:center;
+  }
+
+  /* ════ MOVEMENT 1 — CONNECT ════ */
+  .connect{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .cgroup{
+    background:linear-gradient(180deg,var(--panel) 0%,rgba(11,18,37,.55) 100%);
+    border:1px solid var(--line-soft);border-radius:16px;padding:24px 22px 26px;
+    position:relative;overflow:hidden;
+  }
+  .cgroup::after{content:"";position:absolute;inset:0 0 auto 0;height:2px;opacity:.7}
+  .cgroup.k::after{background:linear-gradient(90deg,var(--blue),transparent)}
+  .cgroup.p::after{background:linear-gradient(90deg,var(--purple),transparent)}
+  .cgroup.c::after{background:linear-gradient(90deg,var(--teal),transparent)}
+  .cgroup .ck{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted-2)}
+  .cgroup h4{font-family:'Syne',sans-serif;font-weight:700;font-size:18px;margin:6px 0 18px}
+  .tiles{display:flex;flex-wrap:wrap;gap:9px}
+  .tile{
+    display:flex;align-items:center;gap:8px;background:var(--panel-2);
+    border:1px solid var(--line-soft);border-radius:9px;padding:8px 11px 8px 8px;
+    transition:border-color .25s,transform .25s;
+  }
+  .tile:hover{border-color:var(--line);transform:translateY(-2px)}
+  .tile .gl{width:22px;height:22px;border-radius:6px;display:grid;place-items:center;flex:0 0 22px}
+  .tile .gl svg{width:13px;height:13px}
+  .tile span{font-family:'Barlow Condensed',sans-serif;font-weight:500;font-size:14px;color:#C7D2F0;white-space:nowrap}
+
+  /* ════ MOVEMENT 2 — THE LOOP (signature) ════ */
+  .loop-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:34px;align-items:center}
+  .loop-stage{
+    background:radial-gradient(120% 120% at 30% 0%, rgba(74,136,255,.06), transparent 60%),var(--panel);
+    border:1px solid var(--line-soft);border-radius:22px;padding:30px;position:relative;
+  }
+  .loop-svg{width:100%;height:auto;display:block}
+  .loop-copy h3{
+    font-family:'Barlow Condensed',sans-serif;font-weight:900;text-transform:uppercase;
+    font-size:clamp(26px,3.4vw,40px);line-height:1.0;letter-spacing:-.3px;
+  }
+  .loop-copy h3 em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .loop-copy p{color:var(--muted);font-size:17px;margin-top:16px;max-width:46ch;font-weight:300}
+  .meter{margin-top:26px;background:var(--panel-2);border:1px solid var(--line-soft);border-radius:14px;padding:18px 20px}
+  .meter .row{display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--muted-2);text-transform:uppercase}
+  .meter .row b{color:var(--ink);font-weight:500}
+  .bars{display:flex;gap:5px;margin-top:14px;align-items:flex-end;height:56px}
+  .bars i{flex:1;background:linear-gradient(180deg,var(--blue),rgba(74,136,255,.15));border-radius:3px 3px 0 0;opacity:.85}
+  .bars i:nth-child(n+9){background:linear-gradient(180deg,var(--purple),rgba(170,68,255,.18))}
+  .meter .cap{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted-2);margin-top:12px;letter-spacing:.5px}
+  .meter .cap b{color:var(--teal);font-weight:500}
+
+  /* ════ MOVEMENT 3 — ALWAYS-ON GRID ════ */
+  .grid6{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .mod{
+    background:linear-gradient(180deg,var(--panel) 0%,rgba(11,18,37,.5) 100%);
+    border:1px solid var(--line-soft);border-radius:18px;padding:24px 22px 22px;
+    position:relative;overflow:hidden;transition:border-color .3s,transform .3s;
+    display:flex;flex-direction:column;min-height:262px;
+  }
+  .mod:hover{transform:translateY(-3px);border-color:var(--line)}
+  .mod .ico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;margin-bottom:18px;position:relative}
+  .mod .ico svg{width:22px;height:22px}
+  .mod h4{font-family:'Syne',sans-serif;font-weight:700;font-size:19px;letter-spacing:-.2px;margin-bottom:8px}
+  .mod .who{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--muted-2);margin-bottom:14px}
+  .mod p{color:var(--muted);font-size:15px;font-weight:300;flex:1}
+  .ping{
+    margin-top:16px;background:var(--panel-2);border:1px solid var(--line-soft);
+    border-radius:10px;padding:11px 13px;font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;line-height:1.45;color:#AEBCE6;display:flex;gap:9px;align-items:flex-start;
+  }
+  .ping .dot{width:7px;height:7px;border-radius:50%;margin-top:4px;flex:0 0 7px;animation:blink 2.6s ease-in-out infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+  .ping b{color:#E6ECFF;font-weight:500}
+
+  /* accent helpers */
+  .a-blue .ico{background:rgba(74,136,255,.12);color:var(--blue)} .a-blue .ico{box-shadow:inset 0 0 0 1px rgba(74,136,255,.25)}
+  .a-teal .ico{background:rgba(45,217,196,.12);color:var(--teal);box-shadow:inset 0 0 0 1px rgba(45,217,196,.25)}
+  .a-purple .ico{background:rgba(170,68,255,.12);color:var(--purple);box-shadow:inset 0 0 0 1px rgba(170,68,255,.25)}
+  .a-magenta .ico{background:rgba(224,84,196,.12);color:var(--magenta);box-shadow:inset 0 0 0 1px rgba(224,84,196,.25)}
+  .a-amber .ico{background:rgba(245,166,35,.12);color:var(--amber);box-shadow:inset 0 0 0 1px rgba(245,166,35,.25)}
+  .a-blue .dot{background:var(--blue)} .a-teal .dot{background:var(--teal)}
+  .a-purple .dot{background:var(--purple)} .a-magenta .dot{background:var(--magenta)} .a-amber .dot{background:var(--amber)}
+  .mod .badge{position:absolute;top:18px;right:18px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted-2);border:1px solid var(--line);border-radius:20px;padding:3px 9px}
+
+  /* ════ closing stat band ════ */
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:64px}
+  .stat{background:var(--panel);border:1px solid var(--line-soft);border-radius:18px;padding:30px 32px;display:flex;align-items:center;gap:24px}
+  .stat .big{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(46px,7vw,72px);line-height:.85;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-1px}
+  .stat .lab{color:var(--muted);font-size:16px;font-weight:300;max-width:24ch}
+
+  /* responsive */
+  @media (max-width:880px){
+    .wrap{padding:72px 20px 84px}
+    .connect{grid-template-columns:1fr}
+    .loop-grid{grid-template-columns:1fr;gap:24px}
+    .grid6{grid-template-columns:1fr}
+    .stats{grid-template-columns:1fr}
+    .movement .tag{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;scroll-behavior:auto}
+  }
+  /* sweep animation on loop */
+  .sweep{transform-origin:200px 200px;animation:spin 9s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .pulse-node{animation:nodepulse 3s ease-in-out infinite}
+  @keyframes nodepulse{0%,100%{r:5}50%{r:7}}
+  /* rotating ping crossfade */
+  .ping span:last-child{transition:opacity .45s ease}
+  .ping.fading span:last-child{opacity:0}
+
 
 /* ─── ATLAS ─────────────────────────────────────────────────────────── */
 .atlas-spotlight { background: var(--void); }
@@ -841,50 +979,213 @@ section { padding: 96px 0; }
 
 <!-- ═══════════════════════════════════ HOW IT WORKS ═════════ -->
 <section class="hiw" id="how-it-works">
-  <div class="container">
-    <div class="label label-teal">How It Works</div>
-    <h2 class="section-h2">From brief to shipped.<br><em class="gradient-text">You stay in control.</em></h2>
-    <p class="section-body">You define the goal. The agents do the work. Human sign-off at every key decision gate — without the alignment overhead that buries your team in meetings.</p>
+<section class="wrap">
 
-    <div class="hiw-steps">
-      <div class="hiw-step">
-        <div class="hiw-num">01</div>
-        <div class="hiw-phase">Initiation</div>
-        <div class="hiw-title">You Define the Goal</div>
-        <div class="hiw-body">Describe a product initiative in plain language. Atlas parses intent, activates the right agents, and injects your org's strategy, OKRs, and history into context.</div>
-      </div>
-      <div class="hiw-step">
-        <div class="hiw-num">02</div>
-        <div class="hiw-phase">Orchestration</div>
-        <div class="hiw-title">Agents Brief Each Other</div>
-        <div class="hiw-body">Atlas writes the PRD. Sage runs discovery. Pixel reviews for UX feasibility. Forge flags scope and complexity — automatically, in parallel, before a meeting is scheduled.</div>
-      </div>
-      <div class="hiw-step">
-        <div class="hiw-num">03</div>
-        <div class="hiw-phase">Execution</div>
-        <div class="hiw-title">Parallel Workstreams</div>
-        <div class="hiw-body">Wireframes, architecture docs, data models, go-to-market briefs — all running in sync. Work that used to take months of alignment overhead happens in days.</div>
-      </div>
-      <div class="hiw-step">
-        <div class="hiw-num">04</div>
-        <div class="hiw-phase">Human Gate</div>
-        <div class="hiw-title">You Review &amp; Ship</div>
-        <div class="hiw-body">You stay in control at key decision gates. High-judgment humans direct the system. The agents handle the weight. You ship with confidence, not chaos.</div>
-      </div>
-    </div>
+  <span class="eyebrow">How It Works</span>
+  <h2 class="section-title">One system. <em>Always on.</em> Smarter every cycle.</h2>
+  <p class="lede">You connect your stack once. The agents read it, build a legible context layer your whole org can see, and work proactively around the clock — sparring, scanning, aligning. Every cycle makes the system sharper. You stay in control at every gate.</p>
 
-    <div class="metrics-row">
-      <div class="metric-card">
-        <div class="metric-num" style="color:var(--blue)">10×</div>
-        <div class="metric-desc">Faster to first prototype vs. traditional product cycles</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-num" style="color:var(--teal)">1 : 8</div>
-        <div class="metric-desc">One orchestrator operating with the output of a full product team</div>
-      </div>
-
-    </div>
+  <!-- ════════ MOVEMENT 1 — CONNECT ════════ -->
+  <div class="movement">
+    <span class="num">01</span>
+    <h3>Connect your stack</h3>
+    <span class="tag">Read-only · 4–6 week ingest</span>
   </div>
+  <div class="connect">
+
+    <div class="cgroup k">
+      <span class="ck">Knowledge</span>
+      <h4>Where decisions already live</h4>
+      <div class="tiles">
+        <div class="tile"><span class="gl" style="background:rgba(240,244,255,.08)"><svg viewBox="0 0 24 24" fill="none" stroke="#C7D2F0" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span><span>Notion</span></div>
+        <div class="tile"><span class="gl" style="background:rgba(74,136,255,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#4A88FF" stroke-width="2"><path d="M4 18c4-7 12-7 16 0M4 6c4 7 12 7 16 0"/></svg></span><span>Confluence</span></div>
+        <div class="tile"><span class="gl" style="background:rgba(45,217,196,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#2DD9C4" stroke-width="2"><path d="M12 3l8 14H4z"/><path d="M9 17l3-5 3 5"/></svg></span><span>Google Drive</span></div>
+        <div class="tile"><span class="gl" style="background:rgba(170,68,255,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#AA44FF" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18"/></svg></span><span>SharePoint</span></div>
+      </div>
+    </div>
+
+    <div class="cgroup p">
+      <span class="ck">Planning</span>
+      <h4>Where the roadmap moves</h4>
+      <div class="tiles">
+        <div class="tile"><span class="gl" style="background:rgba(74,136,255,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#4A88FF" stroke-width="2"><path d="M12 2v9l7 4M12 11l-7 4"/><circle cx="12" cy="12" r="9"/></svg></span><span>Jira</span></div>
+        <div class="tile"><span class="gl" style="background:rgba(170,68,255,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#AA44FF" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 4v16"/></svg></span><span>Linear</span></div>
+        <div class="tile"><span class="gl" style="background:rgba(45,217,196,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#2DD9C4" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M10 4v16"/></svg></span><span>Productboard</span></div>
+        <div class="tile"><span class="gl" style="background:rgba(245,166,35,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2"><circle cx="7" cy="12" r="3"/><circle cx="17" cy="7" r="3"/><circle cx="17" cy="17" r="3"/></svg></span><span>Asana</span></div>
+      </div>
+    </div>
+
+    <div class="cgroup c">
+      <span class="ck">Communication</span>
+      <h4>Where context gets lost</h4>
+      <div class="tiles">
+        <div class="tile"><span class="gl" style="background:rgba(170,68,255,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#AA44FF" stroke-width="2"><path d="M8 8h8v8H8z"/><path d="M8 4v4M16 16v4M4 16h4M16 8h4"/></svg></span><span>Slack</span></div>
+        <div class="tile"><span class="gl" style="background:rgba(74,136,255,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#4A88FF" stroke-width="2"><circle cx="9" cy="9" r="4"/><path d="M15 7a4 4 0 0 1 0 8M3 20a6 6 0 0 1 12 0M15 20a6 6 0 0 1 6 0"/></svg></span><span>Teams</span></div>
+        <div class="tile"><span class="gl" style="background:rgba(45,217,196,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#2DD9C4" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><span>Gmail</span></div>
+        <div class="tile"><span class="gl" style="background:rgba(74,136,255,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#4A88FF" stroke-width="2"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3z"/></svg></span><span>Zoom</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ════════ MOVEMENT 2 — THE COMPOUNDING LOOP ════════ -->
+  <div class="movement">
+    <span class="num">02</span>
+    <h3>The closed loop that compounds</h3>
+    <span class="tag">The moat</span>
+  </div>
+  <div class="loop-grid">
+
+    <div class="loop-stage">
+      <svg class="loop-svg" viewBox="0 0 400 400" role="img" aria-label="Closed-loop context engine">
+        <defs>
+          <linearGradient id="ring" x1="0" y1="0" x2="400" y2="400" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#4A88FF"/><stop offset="1" stop-color="#AA44FF"/>
+          </linearGradient>
+          <radialGradient id="core" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="#1A2B57"/><stop offset="1" stop-color="#0B1225"/>
+          </radialGradient>
+          <linearGradient id="sweepg" x1="200" y1="60" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#4A88FF" stop-opacity=".9"/><stop offset="1" stop-color="#4A88FF" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+
+        <!-- outer track -->
+        <circle cx="200" cy="200" r="140" fill="none" stroke="#14213C" stroke-width="2"/>
+        <circle cx="200" cy="200" r="140" fill="none" stroke="url(#ring)" stroke-width="2.5"
+                stroke-dasharray="6 14" opacity=".55"/>
+
+        <!-- rotating sweep -->
+        <g class="sweep">
+          <path d="M200 200 L200 60 A140 140 0 0 1 296 104 Z" fill="url(#sweepg)" opacity=".22"/>
+          <line x1="200" y1="200" x2="200" y2="60" stroke="#4A88FF" stroke-width="2" opacity=".7"/>
+        </g>
+
+        <!-- stage nodes -->
+        <g font-family="IBM Plex Mono, monospace" font-size="11" fill="#AEBCE6" text-anchor="middle">
+          <!-- top: READ -->
+          <circle class="pulse-node" cx="200" cy="60" r="6" fill="#4A88FF"/>
+          <text x="200" y="40" fill="#E6ECFF">READ</text>
+          <text x="200" y="54" font-size="8.5" fill="#46557F">ingest signal</text>
+          <!-- right: BUILD -->
+          <circle class="pulse-node" cx="340" cy="200" r="6" fill="#AA44FF" style="animation-delay:.8s"/>
+          <text x="340" y="176" fill="#E6ECFF">BUILD</text>
+          <text x="340" y="190" font-size="8.5" fill="#46557F">legible context</text>
+          <!-- bottom: ACT -->
+          <circle class="pulse-node" cx="200" cy="340" r="6" fill="#2DD9C4" style="animation-delay:1.6s"/>
+          <text x="200" y="364" fill="#E6ECFF">ACT</text>
+          <text x="200" y="378" font-size="8.5" fill="#46557F">proactive work</text>
+          <!-- left: CAPTURE -->
+          <circle class="pulse-node" cx="60" cy="200" r="6" fill="#F5A623" style="animation-delay:2.4s"/>
+          <text x="60" y="176" fill="#E6ECFF">CAPTURE</text>
+          <text x="60" y="190" font-size="8.5" fill="#46557F">real outcomes</text>
+        </g>
+
+        <!-- direction arrows -->
+        <g fill="#46557F">
+          <path d="M283 96 l8 1 -3 7z"/>
+          <path d="M311 285 l-1 8 -7 -4z"/>
+          <path d="M96 305 l-8 -1 3 -7z"/>
+          <path d="M90 116 l1 -8 7 4z"/>
+        </g>
+
+        <!-- core: compounding context -->
+        <circle cx="200" cy="200" r="72" fill="url(#core)" stroke="#1E2F5A" stroke-width="1.5"/>
+        <polygon points="200,150 243,175 243,225 200,250 157,225 157,175"
+                 fill="none" stroke="url(#ring)" stroke-width="1.5" opacity=".6"/>
+        <text x="200" y="190" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" letter-spacing="1.5" fill="#46557F">CONTEXT LAYER</text>
+        <text x="200" y="214" text-anchor="middle" font-family="Barlow Condensed, sans-serif" font-weight="900" font-size="26" fill="#E6ECFF">Cycle 12</text>
+        <text x="200" y="232" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8.5" fill="#2DD9C4">847 docs · confidence ↑</text>
+      </svg>
+    </div>
+
+    <div class="loop-copy">
+      <h3>The work loops. <em>Your knowledge accrues.</em></h3>
+      <p>Most AI tools forget the moment a thread closes. Superhuman Systems closes the loop: every decision, signal, and outcome flows back into a context layer the whole org can read. It isn't a faster note-taker — it's institutional memory that gets sharper with each cycle and doesn't walk out the door when people leave.</p>
+      <div class="meter">
+        <div class="row"><span>Context depth over time</span><span><b>+38%</b> / quarter</span></div>
+        <div class="bars">
+          <i style="height:18%"></i><i style="height:24%"></i><i style="height:29%"></i><i style="height:33%"></i>
+          <i style="height:41%"></i><i style="height:48%"></i><i style="height:55%"></i><i style="height:63%"></i>
+          <i style="height:70%"></i><i style="height:78%"></i><i style="height:88%"></i><i style="height:100%"></i>
+        </div>
+        <div class="cap">Cycle 1 → Cycle 12 &nbsp;·&nbsp; <b>org-level</b> compounding — not one person's memory, the whole function's.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ════════ MOVEMENT 3 — ALWAYS-ON INTELLIGENCE ════════ -->
+  <div class="movement">
+    <span class="num">03</span>
+    <h3>What the system does — on its own</h3>
+    <span class="tag">Always-on · runs around the loop</span>
+  </div>
+  <div class="grid6">
+
+    <!-- Sparring -->
+    <div class="mod a-blue">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M9 10h.01M13 10h.01"/></svg></div>
+      <h4>Proactive Sparring</h4>
+      <div class="who">Atlas · Strategy</div>
+      <p>Agents don't wait to be asked. They challenge weak assumptions and surface the question you skipped — before it becomes rework.</p>
+      <div class="ping" data-rotate="sparring"><span class="dot"></span><span><b>Atlas:</b> This overlaps the de-prioritised SMB self-serve bet. Want the Q3 churn context before you scope it?</span></div>
+    </div>
+
+    <!-- Upskilling (Augment) -->
+    <div class="mod a-teal">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l9 5-9 5-9-5z"/><path d="M5 11v5c0 1 3 3 7 3s7-2 7-3v-5"/></svg></div>
+      <h4>PM Upskilling</h4>
+      <div class="who">Atlas · Augment</div>
+      <p>Every cycle teaches your PMs in the flow of real work — sharper discovery, tighter specs, better calls. The system raises the people running it.</p>
+      <div class="ping" data-rotate="upskill"><span class="dot"></span><span><b>Coaching:</b> Strong problem framing this cycle. Next lift — pressure-test the success metric before design starts.</span></div>
+    </div>
+
+    <!-- Sonar (internal collision scan) -->
+    <div class="mod a-blue">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0"/><path d="M5 12a7 7 0 0 1 7-7M19 12a7 7 0 0 1-7 7" opacity=".8"/><path d="M2 12A10 10 0 0 1 12 2M22 12A10 10 0 0 1 12 22" opacity=".45"/></svg></div>
+      <h4>Sonar</h4>
+      <div class="who">Atlas · Inward</div>
+      <p>The inward scan. Listens beneath the surface for internal collisions — duplicate work, conflicting roadmaps, unresolved ambiguity — before two teams ship the same thing.</p>
+      <div class="ping" data-rotate="sonar"><span class="dot"></span><span><b>Collision:</b> Payments + Growth are both scoping refunds. Owners flagged — align before sprint planning.</span></div>
+    </div>
+
+    <!-- Horizon (competitor scanner) -->
+    <div class="mod a-magenta">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 14a10 10 0 0 1 20 0"/><circle cx="12" cy="14" r="2.5"/><path d="M12 14l5-5"/></svg></div>
+      <h4>Horizon</h4>
+      <div class="who">Pulse · Outward</div>
+      <p>The outward radar. Scans competitor moves continuously — from press and launches to earnings-call breakdowns — and tells you what it means for your roadmap.</p>
+      <div class="ping" data-rotate="horizon"><span class="dot"></span><span><b>Signal:</b> Rival named "decision layer" on their Q2 call. Vocabulary overlap rising — positioning note ready.</span></div>
+    </div>
+
+    <!-- Real-time alignment -->
+    <div class="mod a-purple">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8 7l3 9M16 7l-3 9"/></svg></div>
+      <h4>Real-Time Alignment</h4>
+      <div class="who">Atlas · Planning</div>
+      <p>Planning that resolves in the system, not in a month of meetings. Trade-offs, dependencies, and sequencing align live — teams agree on the artifact, not in the room.</p>
+      <div class="ping" data-rotate="align"><span class="dot"></span><span><b>Plan:</b> Q3 roadmap reconciled across 3 brands. 2 conflicts resolved · 1 needs a human call.</span></div>
+    </div>
+
+    <!-- Momentum -->
+    <div class="mod a-amber">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l5-5 4 3 7-8"/><path d="M16 7h4v4"/></svg></div>
+      <h4>Momentum</h4>
+      <div class="who">Atlas · Visibility</div>
+      <p>The live state of every product — readable at every altitude and across every function. PMs see their cycle, execs see the org, sales and marketing see what’s shipping and when. One source of truth. Zero status decks.</p>
+      <div class="ping" data-rotate="momentum"><span class="dot"></span><span><b>Momentum:</b> Onboarding v2 on track · Billing slipping — dependency on auth, owner notified.</span></div>
+    </div>
+
+  </div>
+
+  <!-- closing stats -->
+  <div class="stats">
+    <div class="stat"><span class="big">10×</span><span class="lab">Faster to first prototype vs. traditional product cycles</span></div>
+    <div class="stat"><span class="big">1:8</span><span class="lab">One orchestrator operating with the output of a full product team</span></div>
+  </div>
+
+</section>
 </section>
 
 <!-- ═══════════════════════════════════ ATLAS SPOTLIGHT ══════ -->
@@ -906,8 +1207,8 @@ section { padding: 96px 0; }
           <div class="atlas-feature">
             <div class="feature-icon">📡</div>
             <div>
-              <div class="feature-title">Org Radar</div>
-              <div class="feature-body">Always-on duplicate work detection. When another team is building something that overlaps your roadmap, Org Radar surfaces it immediately — who owns it, how far along they are, and who to talk to before it's too late.</div>
+              <div class="feature-title">Sonar</div>
+              <div class="feature-body">Always-on duplicate work detection. When another team is building something that overlaps your roadmap, Sonar surfaces it immediately — who owns it, how far along they are, and who to talk to before it's too late.</div>
             </div>
           </div>
           <div class="atlas-feature">
@@ -943,7 +1244,7 @@ section { padding: 96px 0; }
           </div>
           <div class="ui-connector">
             <div class="ui-connector-dot" style="background:var(--blue)"></div>
-            <span class="ui-connector-text">Org Radar · 0 overlaps detected</span>
+            <span class="ui-connector-text">Sonar · 0 overlaps detected</span>
             <span class="ui-connector-status" style="color:var(--blue)">MONITORING</span>
           </div>
 
@@ -1007,7 +1308,7 @@ section { padding: 96px 0; }
         <div class="pricing-divider"></div>
         <ul class="pricing-features">
           <li><strong>Everything in Team</strong></li>
-          <li>Cross-team signal sharing &amp; Org Radar</li>
+          <li>Cross-team signal sharing &amp; Sonar</li>
           <li>Division-wide roadmap view</li>
           <li>Dedicated onboarding &amp; champion program</li>
           <li>Priority support SLA</li>
@@ -1096,7 +1397,7 @@ section { padding: 96px 0; }
           <td class="col-ss"><span class="vs-check">✓</span></td>
         </tr>
         <tr>
-          <td>Org Radar / duplicate work detection</td>
+          <td>Sonar / internal collision detection</td>
           <td><span class="vs-x">✕</span></td>
           <td><span class="vs-x">✕</span></td>
           <td><span class="vs-x">✕</span></td>
@@ -1561,6 +1862,65 @@ section { padding: 96px 0; }
   document.getElementById('ct-dialog').addEventListener('click', function(e) {
     if (e.target === this) closeContact();
   });
+
+/* ── How It Works v2 rotating pings ── */
+(function(){
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var FEEDS = {
+    sparring: [
+      '<b>Atlas:</b> This overlaps the de-prioritised SMB self-serve bet. Want the Q3 churn context before you scope it?',
+      '<b>Atlas:</b> Your success metric measures usage, not value. Two cycles ago that gap cost a quarter — rethink it?',
+      '<b>Atlas:</b> Sage\u2019s last discovery contradicts this assumption. Pulling the three interviews that matter.'
+    ],
+    upskill: [
+      '<b>Coaching:</b> Strong problem framing this cycle. Next lift — pressure-test the success metric before design starts.',
+      '<b>Coaching:</b> You\u2019ve shipped 3 cycles without a kill decision. Practicing the \u201cno\u201d is the next skill to build.',
+      '<b>Coaching:</b> Your specs improved 2\u00d7 on ambiguity score since onboarding. Discovery depth is the next frontier.'
+    ],
+    sonar: [
+      '<b>Collision:</b> Payments + Growth are both scoping refunds. Owners flagged — align before sprint planning.',
+      '<b>Ambiguity:</b> \u201cActivation\u201d means 3 different things across 3 brand teams. Lexicon update drafted for review.',
+      '<b>Overlap:</b> A platform team built the export API your roadmap re-scopes for Q4. Intro thread suggested.'
+    ],
+    horizon: [
+      '<b>Signal:</b> Rival named \u201cdecision layer\u201d on their Q2 call. Vocabulary overlap rising — positioning note ready.',
+      '<b>Launch:</b> Competitor shipped usage-based pricing overnight. Breakdown vs. your pricing thesis is ready.',
+      '<b>Earnings:</b> Their NRR dipped 6pts — enterprise churn cited. Three displacement plays drafted.'
+    ],
+    align: [
+      '<b>Plan:</b> Q3 roadmap reconciled across 3 brands. 2 conflicts resolved \u00b7 1 needs a human call.',
+      '<b>Dependency:</b> Design system v3 blocks two teams\u2019 timelines. Re-sequencing proposed — no meeting needed.',
+      '<b>Trade-off:</b> Capacity says one of two H2 bets. Evidence comparison assembled — your call by Friday.'
+    ],
+    momentum: [
+      '<b>Momentum:</b> Onboarding v2 on track \u00b7 Billing slipping — dependency on auth, owner notified.',
+      '<b>GTM:</b> API launch confirmed for March 12. Marketing brief and sales enablement window unlocked.',
+      '<b>Live state:</b> 7 of 9 cycles green. Two stalls share one root cause: unresolved data-model decision.',
+      '<b>Trend:</b> Cycle velocity up 22% this quarter. Discovery-to-spec is now the slowest stage.'
+    ]
+  };
+
+  var pings = document.querySelectorAll('.ping[data-rotate]');
+  pings.forEach(function(el, i){
+    var key = el.getAttribute('data-rotate');
+    var msgs = FEEDS[key];
+    if (!msgs || msgs.length < 2) return;
+    var idx = 0;
+    var target = el.querySelector('span:last-child');
+    // stagger start so cards don't flip in unison
+    setTimeout(function(){
+      setInterval(function(){
+        el.classList.add('fading');
+        setTimeout(function(){
+          idx = (idx + 1) % msgs.length;
+          target.innerHTML = msgs[idx];
+          el.classList.remove('fading');
+        }, 450);
+      }, 6500);
+    }, i * 1100);
+  });
+})();
 </script>
 
 
