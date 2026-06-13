@@ -151,6 +151,11 @@ dialog, dialog.ss-modal {
   max-width: 500px !important;
   width: calc(100% - 40px) !important;
   overflow: hidden !important;
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  margin: 0 !important;
 }
 dialog::backdrop { background: rgba(4,8,20,.88); backdrop-filter: blur(14px); }
 dialog.ss-modal .modal-stripe {
@@ -456,12 +461,12 @@ dialog[open] { animation: modal-in .25s ease both; }
     <ul class="nav-links">
       <li><a href="index.html#agents">Product</a></li>
       <li><a href="index.html#how-it-works">How It Works</a></li>
-      <li><a href="index.html#pricing">Pricing</a></li>
+      <li><a href="index.html#pricing" style="display:none">Pricing</a></li>
       <li><a href="about.html" class="active" style="color:var(--text)">About</a></li>
     </ul>
     <div class="nav-cta">
-      <button class="btn-ghost" onclick="openSignin()">Sign In</button>
-      <button class="btn-primary" onclick="openWaitlist()">Join Waitlist →</button>
+      <button class="btn-ghost" onclick="openSignin()" style="display:none">Sign In</button>
+      <button class="btn-primary" onclick="openContact()">Contact Us →</button>
     </div>
   </div>
 </nav>
@@ -621,11 +626,11 @@ dialog[open] { animation: modal-in .25s ease both; }
           <div class="chapter-num">Chapter 03 · The Mission</div>
           <h3 class="chapter-h3">Customer-centric. Efficient. Fast. Finally.</h3>
           <p class="chapter-body">
-            We started Superhuman Systems with a precise thesis: <strong>a small number of high-judgment humans, directing a team of specialised AI agents, can produce the output of a full product organisation</strong> — with higher quality, faster cycles, and institutional memory that doesn't walk out the door.
+            We started Superhuman Systems with a precise thesis: <strong>a product team directing specialised AI agents can produce the output of a full product organisation</strong> — with higher quality, faster cycles, and institutional memory that doesn't walk out the door.
             <br><br>
             Not a productivity tool. Not a copilot. An operating system. One where agents share context with each other, challenge each other's work, and handle the execution weight — so the humans in the loop can focus exclusively on the decisions that actually require human judgment.
             <br><br>
-            The product org of the future isn't necessarily larger. <strong>It's leaner, more capable, and relentlessly customer-centric</strong> — because agents don't have competing priorities, don't lose context when someone leaves, and don't spend Monday mornings in status updates. That's the organisation we're building the infrastructure for.
+            The product org of the future isn't defined by its size. <strong>It's more capable, faster, and relentlessly customer-centric</strong> — because agents don't have competing priorities, don't lose context when someone leaves, and don't spend Monday mornings in status updates. That's the organisation we're building the infrastructure for.
           </p>
         </div>
 
@@ -687,8 +692,7 @@ dialog[open] { animation: modal-in .25s ease both; }
       <em class="gradient-text">See the system.</em>
     </h2>
     <p>If you're leading a product organisation and you've hit the ceiling of what headcount and tooling can solve — we built this for you. Let's talk.</p>
-    <button class="btn-hero btn-hero-primary" onclick="openWaitlist()">Join Waitlist →</button>
-    <p class="cta-note">Enterprise-grade · Per product cycle · Deployment in 4–6 weeks</p>
+    <button class="btn-hero btn-hero-primary" onclick="openContact()">Contact Us →</button>
   </div>
 </section>
 
@@ -879,14 +883,10 @@ dialog[open] { animation: modal-in .25s ease both; }
     }
     btn.textContent = 'Submitting…'; btn.style.opacity = '.6'; btn.disabled = true;
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
+      const res = await fetch('https://hook.eu1.make.com/3cq0wpstoudqs6dhfs7w1cas1pgewfu2', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'anthropic-beta': 'mcp-client-2025-04-04' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514', max_tokens: 500,
-          messages: [{ role: 'user', content: 'Use the notion-create-pages tool to add a waitlist entry. Parent data_source_id: "af78ca22-9951-48ed-aa04-08df9da23ef8". Properties — Name: "' + firstName + '", Last Name: "' + lastName + '", Work Email: "' + email + '", Company: "' + company + '", Role: "' + role + '", Status: "New". Create it now.' }],
-          mcp_servers: [{ type: 'url', url: 'https://mcp.notion.com/mcp', name: 'notion' }]
-        })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstName, lastName, email, company, role })
       });
       if (res.ok) {
         document.getElementById('wl-form').style.display = 'none';
@@ -1026,14 +1026,10 @@ dialog[open] { animation: modal-in .25s ease both; }
     }
     btn.textContent = 'Sending…'; btn.style.opacity = '.6'; btn.disabled = true;
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
+      const res = await fetch('https://hook.eu1.make.com/et68yxudfsmajw9v3my8vvgqgemqwyzs', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'anthropic-beta': 'mcp-client-2025-04-04' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514', max_tokens: 500,
-          messages: [{ role: 'user', content: 'Use the notion-create-pages tool to log a contact form submission. Parent data_source_id: "8f77435a-c78a-4c3b-88ec-15258bc3a80e". Properties — Name: "' + firstName + '", Last Name: "' + lastName + '", Work Email: "' + email + '", Company: "' + company + '", Message: "' + message.substring(0, 500) + '", Status: "New". Create it now.' }],
-          mcp_servers: [{ type: 'url', url: 'https://mcp.notion.com/mcp', name: 'notion' }]
-        })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstName, lastName, email, company, message })
       });
       if (res.ok) {
         document.getElementById('ct-form').style.display = 'none';
