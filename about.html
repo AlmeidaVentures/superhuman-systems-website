@@ -372,7 +372,7 @@ dialog[open] { animation: modal-in .25s ease both; }
 .stat-label { font-size: 13px; color: var(--muted); line-height: 1.5; }
 
 /* ─── PRINCIPLES ────────────────────────────────────────────────────── */
-.principles { padding: 96px 0; background: var(--deep) !important; }
+.principles { padding: 96px 0; background: var(--surface) !important; }
 .principles-inner { display: grid; grid-template-columns: 1fr 1.6fr; gap: 80px; align-items: start; }
 .principles-left { position: static; }
 .principles-left h2 { font-family: var(--font-head); font-size: clamp(34px, 3.5vw, 50px); font-weight: 900; text-transform: uppercase; line-height: .98; margin-bottom: 16px; }
@@ -400,9 +400,7 @@ dialog[open] { animation: modal-in .25s ease both; }
 }
 .cta-bg {
   position: absolute; inset: 0; z-index: 0;
-  background:
-    radial-gradient(ellipse 70% 70% at 50% 50%, rgba(26,107,240,.1) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 40% at 80% 20%, rgba(123,53,232,.08) 0%, transparent 60%);
+  background: none;
 }
 .cta-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
 .cta-inner h2 { font-family: var(--font-head); font-size: clamp(42px, 5vw, 64px); font-weight: 900; text-transform: uppercase; line-height: .96; margin-bottom: 18px; }
