@@ -1840,14 +1840,10 @@ section { padding: 96px 0; }
     }
     btn.textContent = 'Sending…'; btn.style.opacity = '.6'; btn.disabled = true;
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
+      const res = await fetch('https://hook.eu1.make.com/et68yxudfsmajw9v3my8vvgqgemqwyzs', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'anthropic-beta': 'mcp-client-2025-04-04' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514', max_tokens: 500,
-          messages: [{ role: 'user', content: 'Use the notion-create-pages tool to log a contact form submission. Parent data_source_id: "8f77435a-c78a-4c3b-88ec-15258bc3a80e". Properties — Name: "' + firstName + '", Last Name: "' + lastName + '", Work Email: "' + email + '", Company: "' + company + '", Message: "' + message.substring(0, 500) + '", Status: "New". Create it now.' }],
-          mcp_servers: [{ type: 'url', url: 'https://mcp.notion.com/mcp', name: 'notion' }]
-        })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstName, lastName, email, company, message })
       });
       if (res.ok) {
         document.getElementById('ct-form').style.display = 'none';
