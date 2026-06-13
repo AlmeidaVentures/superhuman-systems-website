@@ -160,7 +160,7 @@ dialog, dialog.ss-modal {
   display: flex !important;
   flex-direction: column !important;
 }
-dialog::backdrop { background: rgba(4,8,20,.88); backdrop-filter: blur(14px); }
+dialog::backdrop { background: rgba(4,8,20,.92); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
 dialog.ss-modal .modal-stripe {
   position: absolute; top: 0; left: 0; right: 0; height: 3px;
 }
@@ -254,8 +254,8 @@ dialog.ss-modal h2 {
   font-size: 11px; font-family: var(--font-mono); letter-spacing: .06em;
 }
 @keyframes modal-in {
-  from { opacity: 0; transform: scale(.96) translateY(8px); }
-  to   { opacity: 1; transform: scale(1) translateY(0); }
+  from { opacity: 0; transform: translate(-50%, calc(-50% + 12px)) scale(.97); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
 dialog[open] { animation: modal-in .25s ease both; }
 
@@ -1662,8 +1662,35 @@ section { padding: 96px 0; }
 
 <!-- ═══ MODAL SCRIPTS ════════════════════════════════════════════ -->
 <script>
+  
+  /* ── Scroll lock (iOS-safe) ───────────────── */
+  let _scrollY = 0;
+  function lockScroll() {
+    _scrollY = window.scrollY;
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = '-' + _scrollY + 'px';
+    document.body.style.width = '100%';
+  }
+  function unlockScroll() {
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    window.scrollTo(0, _scrollY);
+  }
+  /* ── Close all modals helper ──────────────── */
+  function closeAll() {
+    ['wl-dialog','si-dialog','ct-dialog'].forEach(id => {
+      const d = document.getElementById(id);
+      if (d && d.open) d.close();
+    });
+    unlockScroll();
+  }
+
   /* ── Waitlist ──────────────────────────────── */
   function openWaitlist() {
+    closeAll();
     const d = document.getElementById('wl-dialog');
     document.getElementById('wl-form').style.display = 'block';
     document.getElementById('wl-success').style.display = 'none';
@@ -1676,9 +1703,9 @@ section { padding: 96px 0; }
     if (role) role.selectedIndex = 0;
     const btn = document.getElementById('wl-submit');
     if (btn) { btn.textContent = 'Request Early Access →'; btn.style.opacity = '1'; btn.disabled = false; }
-    d.showModal();
+    d.showModal(); lockScroll();
   }
-  function closeWaitlist() { document.getElementById('wl-dialog').close(); }
+  function closeWaitlist() { document.getElementById('wl-dialog').close(); unlockScroll(); }
 
   async function submitWaitlist() {
     const firstName = document.getElementById('wl-fname').value.trim();
@@ -1705,6 +1732,7 @@ section { padding: 96px 0; }
       if (res.ok) {
         document.getElementById('wl-form').style.display = 'none';
         document.getElementById('wl-success').style.display = 'block';
+        setTimeout(closeWaitlist, 2800);
       } else { throw new Error(); }
     } catch(e) {
       errEl.textContent = 'Something went wrong. Please try again.'; errEl.style.display = 'block';
@@ -1714,6 +1742,7 @@ section { padding: 96px 0; }
 
   /* ── Sign In ───────────────────────────────── */
   function openSignin() {
+    closeAll();
     const d = document.getElementById('si-dialog');
     document.getElementById('si-form').style.display = 'block';
     document.getElementById('si-success').style.display = 'none';
@@ -1723,9 +1752,9 @@ section { padding: 96px 0; }
     const btn = document.getElementById('pw-btn'); if (btn) btn.textContent = 'SHOW';
     const sbtn = document.getElementById('si-submit');
     if (sbtn) { sbtn.textContent = 'Sign In →'; sbtn.style.opacity = '1'; sbtn.disabled = false; }
-    d.showModal();
+    d.showModal(); lockScroll();
   }
-  function closeSignin() { document.getElementById('si-dialog').close(); }
+  function closeSignin() { document.getElementById('si-dialog').close(); unlockScroll(); }
 
   function togglePassword() {
     const inp = document.getElementById('si-password');
@@ -1755,10 +1784,10 @@ section { padding: 96px 0; }
 
   /* ── Close on backdrop click ───────────────── */
   document.getElementById('wl-dialog').addEventListener('click', function(e) {
-    if (e.target === this) closeWaitlist();
+    if (e.target === this) { closeWaitlist(); }
   });
   document.getElementById('si-dialog').addEventListener('click', function(e) {
-    if (e.target === this) closeSignin();
+    if (e.target === this) { closeSignin(); }
   });
 </script>
 
@@ -1810,6 +1839,7 @@ section { padding: 96px 0; }
 <script>
   /* ── Contact ───────────────────────────────── */
   function openContact() {
+    closeAll();
     const d = document.getElementById('ct-dialog');
     document.getElementById('ct-form').style.display = 'block';
     document.getElementById('ct-success').style.display = 'none';
@@ -1819,9 +1849,9 @@ section { padding: 96px 0; }
     });
     const btn = document.getElementById('ct-submit');
     if (btn) { btn.textContent = 'Send Message →'; btn.style.opacity = '1'; btn.disabled = false; }
-    d.showModal();
+    d.showModal(); lockScroll();
   }
-  function closeContact() { document.getElementById('ct-dialog').close(); }
+  function closeContact() { document.getElementById('ct-dialog').close(); unlockScroll(); }
 
   async function submitContact() {
     const firstName = document.getElementById('ct-fname').value.trim();
@@ -1848,6 +1878,7 @@ section { padding: 96px 0; }
       if (res.ok) {
         document.getElementById('ct-form').style.display = 'none';
         document.getElementById('ct-success').style.display = 'block';
+        setTimeout(closeContact, 2800);
       } else { throw new Error(); }
     } catch(e) {
       errEl.textContent = 'Something went wrong. Please try again.'; errEl.style.display = 'block';
