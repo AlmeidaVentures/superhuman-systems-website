@@ -104,7 +104,6 @@ nav {
   transition: background .2s, transform .15s;
 }
 .btn-primary:hover { background: var(--blue-dim); transform: translateY(-1px); }
-.btn-lg { font-size: 15px; padding: 14px 30px; border-radius: 8px; }
 
 /* ─── HERO ─────────────────────────────────────────────────────────── */
 .page-hero {
@@ -138,7 +137,6 @@ nav {
   font-size: 18px; line-height: 1.7; color: var(--muted); max-width: 640px;
 }
 .page-hero-sub strong { color: var(--text); font-weight: 700; }
-.hero-actions { display: flex; gap: 14px; margin-top: 34px; flex-wrap: wrap; }
 
 /* ─── PILLAR STRIP ─────────────────────────────────────────────────── */
 .pillars { border-top: 1px solid var(--rim); border-bottom: 1px solid var(--rim); background: var(--deep); }
@@ -317,22 +315,6 @@ section.block { padding: 96px 0; }
 .faq-item[open] summary::after { transform: rotate(45deg); }
 .faq-item .faq-body { padding: 0 4px 24px; color: var(--muted); font-size: 15.5px; max-width: 720px; }
 .faq-item .faq-body strong { color: var(--text); }
-
-/* ─── CTA ──────────────────────────────────────────────────────────── */
-.cta-final { padding: 110px 0; text-align: center; position: relative; overflow: hidden; }
-.cta-final::before {
-  content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse 55% 60% at 50% 100%, rgba(26,107,240,.14), transparent 65%);
-  pointer-events: none;
-}
-.cta-final h2 {
-  font-family: var(--font-head); font-weight: 800;
-  font-size: clamp(42px, 6vw, 72px); line-height: .98;
-  text-transform: uppercase; margin-bottom: 20px; position: relative;
-}
-.cta-final p { color: var(--muted); max-width: 560px; margin: 0 auto 36px; position: relative; }
-.cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; }
-.cta-note { margin-top: 22px; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; position: relative; }
 
 /* ─── FOOTER ───────────────────────────────────────────────────────── */
 footer {
@@ -559,10 +541,6 @@ dialog[open] { animation: modal-in .25s ease both; }
       <p class="page-hero-sub fade-up d2">
         Your teams get AI colleagues that amplify their work. Your security team gets something rarer: <strong>agents that can never see more than the person asking</strong> — enforced by deterministic controls that sit outside the model, on infrastructure that is yours alone.
       </p>
-      <div class="hero-actions fade-up d3">
-        <button class="btn-primary btn-lg" onclick="openContact()">Talk to the founders →</button>
-        <button class="btn-ghost btn-lg" onclick="openContact()">Request the security review pack</button>
-      </div>
     </div>
   </div>
 </section>
@@ -815,20 +793,6 @@ dialog[open] { animation: modal-in .25s ease both; }
         <div class="faq-body">In any customer-nominated cloud region, aligned with your data residency and sovereignty requirements. Regional deployment, key management, and retention terms are covered in the data sovereignty schedule of the enterprise agreement.</div>
       </details>
     </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════ CTA ══════════════════ -->
-<section class="cta-final">
-  <div class="container">
-    <div class="label" style="margin-bottom:20px">Enterprise</div>
-    <h2>Bring your security<br>team to the <em class="gradient-text">first call.</em></h2>
-    <p>Seriously — we'd prefer it. The architecture is the pitch. Request the full security review pack or talk directly with the founders.</p>
-    <div class="cta-actions">
-      <button class="btn-primary btn-lg" onclick="openContact()">Request the security review pack →</button>
-      <button class="btn-ghost btn-lg" onclick="openContact()">Talk to the founders</button>
-    </div>
-    <div class="cta-note">Identity-based access · Deterministic guardrails · PII &amp; GDPR masking · Complete per-customer isolation</div>
   </div>
 </section>
 
