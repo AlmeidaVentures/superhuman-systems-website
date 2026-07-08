@@ -398,6 +398,8 @@ dialog[open] { animation: modal-in .25s ease both; }
   white-space: nowrap; flex-shrink: 0;
 }
 .status-badge-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--teal); }
+.status-badge.progress { color: var(--muted); background: rgba(122,143,173,.12); }
+.status-badge.progress .status-badge-dot { background: var(--muted); }
 
 /* ─── SECTIONS ─────────────────────────────────────────────────────── */
 section { padding: 96px 0; }
@@ -870,33 +872,6 @@ section { padding: 96px 0; }
         <div class="status-badge"><span class="status-badge-dot"></span> Active</div>
       </div>
       </a>
-      <div class="agent-orbit">
-        <div class="agent-dot agent-dot-sage">S</div>
-        <div>
-          <div class="agent-label">Research Agent</div>
-          <div class="agent-name-text">Sage</div>
-          <div class="agent-desc-sm">Continuous discovery & insight synthesis</div>
-        </div>
-        <div class="status-badge"><span class="status-badge-dot"></span> Active</div>
-      </div>
-      <div class="agent-orbit">
-        <div class="agent-dot agent-dot-pixel">P</div>
-        <div>
-          <div class="agent-label">Design Agent</div>
-          <div class="agent-name-text">Pixel</div>
-          <div class="agent-desc-sm">Experience strategy & design systems</div>
-        </div>
-        <div class="status-badge"><span class="status-badge-dot"></span> Active</div>
-      </div>
-      <div class="agent-orbit">
-        <div class="agent-dot agent-dot-forge">F</div>
-        <div>
-          <div class="agent-label">Engineering Agent</div>
-          <div class="agent-name-text">Forge</div>
-          <div class="agent-desc-sm">Technical feasibility & spec translation</div>
-        </div>
-        <div class="status-badge"><span class="status-badge-dot"></span> Active</div>
-      </div>
       <a href="pulse.html" style="display:contents">
       <div class="agent-orbit">
         <div class="agent-dot agent-dot-pulse">P</div>
@@ -908,6 +883,33 @@ section { padding: 96px 0; }
         <div class="status-badge"><span class="status-badge-dot"></span> Active</div>
       </div>
       </a>
+      <div class="agent-orbit">
+        <div class="agent-dot agent-dot-sage">S</div>
+        <div>
+          <div class="agent-label">Research Agent</div>
+          <div class="agent-name-text">Sage</div>
+          <div class="agent-desc-sm">Continuous discovery & insight synthesis</div>
+        </div>
+        <div class="status-badge progress"><span class="status-badge-dot"></span> In Progress</div>
+      </div>
+      <div class="agent-orbit">
+        <div class="agent-dot agent-dot-pixel">P</div>
+        <div>
+          <div class="agent-label">Design Agent</div>
+          <div class="agent-name-text">Pixel</div>
+          <div class="agent-desc-sm">Experience strategy & design systems</div>
+        </div>
+        <div class="status-badge progress"><span class="status-badge-dot"></span> In Progress</div>
+      </div>
+      <div class="agent-orbit">
+        <div class="agent-dot agent-dot-forge">F</div>
+        <div>
+          <div class="agent-label">Engineering Agent</div>
+          <div class="agent-name-text">Forge</div>
+          <div class="agent-desc-sm">Technical feasibility & spec translation</div>
+        </div>
+        <div class="status-badge progress"><span class="status-badge-dot"></span> In Progress</div>
+      </div>
     </div>
   </div>
 </section>
