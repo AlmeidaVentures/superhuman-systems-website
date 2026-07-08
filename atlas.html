@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atlas — The Product Management Agent | Superhuman Systems</title>
+  <meta name="description" content="Atlas is the product management agent inside Superhuman Systems. A sparring partner and living knowledge repository that owns your world model — every decision, signal, and lesson." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&family=Syne+Mono&display=swap" rel="stylesheet" />
+  <style>
+
+/* ─── TOKENS ──────────────────────────────────────────────────────── */
+:root {
+  --void:      #080C18;
+  --deep:      #0D1528;
+  --surface:   #111B35;
+  --rim:       #1A2540;
+  --blue:      #1A6BF0;
+  --blue-soft: #4A88FF;
+  --blue-dim:  #1255C4;
+  --purple:    #7B35E8;
+  --teal:      #00C4A3;
+  --amber:     #F0A040;
+  --coral:     #FF4D6A;
+  --text:      #E8EDF8;
+  --muted:     #7A8FAD;
+  --font-head: 'Barlow Condensed', sans-serif;
+  --font-body: 'Syne', sans-serif;
+  --font-mono: 'Syne Mono', monospace;
+}
+
+/* ─── RESET ────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--void);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+ul { list-style: none; }
+
+/* ─── UTILITY ──────────────────────────────────────────────────────── */
+.container { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
+.label { font-family: var(--font-mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.label-blue { color: var(--blue-soft); }
+.gradient-text {
+  background: linear-gradient(120deg, var(--blue-soft) 0%, var(--teal) 55%, var(--purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── NAV ──────────────────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 0 28px;
+  background: rgba(8,12,24,.92);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.nav-inner {
+  max-width: 1160px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 62px;
+}
+.logo {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-head); font-size: 19px; font-weight: 700;
+  letter-spacing: .02em; color: var(--text);
+}
+.logo-mark {
+  width: 34px; height: 34px; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-head); font-size: 16px; font-weight: 900; color: #fff;
+}
+.nav-links {
+  display: flex; align-items: center; gap: 32px;
+  font-family: var(--font-body); font-size: 14px; font-weight: 500;
+}
+.nav-links a { color: var(--muted); transition: color .2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-cta { display: flex; align-items: center; gap: 10px; }
+.btn-ghost {
+  font-family: var(--font-body); font-size: 13px; font-weight: 600;
+  color: var(--muted); padding: 8px 16px;
+  border: 1px solid var(--rim); border-radius: 6px;
+  background: none; cursor: pointer; white-space: nowrap;
+  transition: color .2s, border-color .2s;
+}
+.btn-ghost:hover { color: var(--text); border-color: var(--blue); }
+.btn-primary {
+  font-family: var(--font-body); font-size: 13px; font-weight: 700;
+  color: #fff; padding: 9px 20px;
+  border: none; border-radius: 6px; background: var(--blue);
+  cursor: pointer; white-space: nowrap;
+  transition: background .2s, transform .15s;
+}
+.btn-primary:hover { background: var(--blue-dim); transform: translateY(-1px); }
+.btn-blue {
+  font-family: var(--font-body); font-size: 14px; font-weight: 700;
+  color: #fff; padding: 13px 26px;
+  border: none; border-radius: 8px; background: var(--blue);
+  cursor: pointer; white-space: nowrap;
+  transition: background .2s, transform .15s;
+}
+.btn-blue:hover { background: var(--blue-dim); transform: translateY(-1px); }
+.btn-outline {
+  font-family: var(--font-body); font-size: 14px; font-weight: 600;
+  color: var(--text); padding: 12px 24px;
+  border: 1px solid #2A3D5F; border-radius: 8px; background: transparent;
+  cursor: pointer; white-space: nowrap;
+  transition: border-color .2s;
+}
+.btn-outline:hover { border-color: var(--blue-soft); }
+
+/* ─── ANIMATION ────────────────────────────────────────────────────── */
+@keyframes fade-up { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+.fade-up { animation: fade-up .7s ease both; }
+.d1 { animation-delay: .1s; } .d2 { animation-delay: .2s; } .d3 { animation-delay: .3s; }
+@keyframes node-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes link-draw { to { stroke-dashoffset: 0; } }
+@keyframes beacon { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+/* ─── PAGE HERO ────────────────────────────────────────────────────── */
+.page-hero {
+  position: relative;
+  padding: 158px 0 60px;
+  overflow: hidden;
+}
+.page-hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 45% at 75% 20%, rgba(26,107,240,.13), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 15% 85%, rgba(0,196,163,.07), transparent 65%);
+  pointer-events: none;
+}
+.page-hero-inner { position: relative; max-width: 880px; }
+.breadcrumb {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 26px;
+}
+.breadcrumb a:hover { color: var(--text); }
+.breadcrumb-sep { color: var(--rim); }
+.agent-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 7px 14px; margin-bottom: 22px;
+  border: 1px solid rgba(74,136,255,.4); border-radius: 100px;
+  background: rgba(26,107,240,.08);
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--blue-soft);
+}
+.agent-badge-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--teal);
+  animation: beacon 2.2s ease-in-out infinite;
+}
+.page-hero h1 {
+  font-family: var(--font-head);
+  font-size: clamp(58px, 8.5vw, 104px);
+  font-weight: 900; text-transform: uppercase;
+  line-height: .92; letter-spacing: .005em;
+  margin-bottom: 26px;
+}
+.page-hero-sub {
+  font-size: 18px; color: var(--muted); line-height: 1.7;
+  max-width: 660px;
+}
+.page-hero-sub strong { color: var(--text); font-weight: 600; }
+.hero-actions { display: flex; gap: 14px; margin-top: 34px; flex-wrap: wrap; }
+
+/* ─── WORLD MODEL STRIP (signature element) ────────────────────────── */
+.model-strip {
+  position: relative;
+  border-top: 1px solid var(--rim);
+  border-bottom: 1px solid var(--rim);
+  background: var(--deep);
+  overflow: hidden;
+}
+.model-strip svg { display: block; width: 100%; height: 96px; }
+.model-link {
+  stroke: rgba(74,136,255,.55); stroke-width: 1;
+  stroke-dasharray: 400; stroke-dashoffset: 400;
+  animation: link-draw 2.6s ease-out forwards;
+}
+.model-link.l2 { animation-delay: .4s; }
+.model-link.l3 { animation-delay: .8s; }
+.model-node { fill: var(--blue-soft); opacity: 0; animation: node-in .8s ease forwards; filter: drop-shadow(0 0 5px rgba(74,136,255,.7)); }
+.model-node.n2 { animation-delay: .3s; fill: var(--teal); filter: drop-shadow(0 0 5px rgba(0,196,163,.6)); }
+.model-node.n3 { animation-delay: .6s; }
+.model-node.n4 { animation-delay: .9s; fill: var(--purple); filter: drop-shadow(0 0 5px rgba(123,53,232,.6)); }
+.model-node.n5 { animation-delay: 1.2s; }
+.model-strip-caption {
+  position: absolute; top: 50%; right: 28px; transform: translateY(-50%);
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--muted);
+  background: var(--deep); padding: 4px 10px;
+}
+
+/* ─── DIAGNOSIS ────────────────────────────────────────────────────── */
+.diagnosis { padding: 96px 0 88px; }
+.diagnosis-grid {
+  display: grid; grid-template-columns: 1fr 1.25fr; gap: 64px;
+  align-items: start;
+}
+.section-h2 {
+  font-family: var(--font-head);
+  font-size: clamp(40px, 5vw, 58px);
+  font-weight: 900; text-transform: uppercase;
+  line-height: .96; margin-top: 14px;
+}
+.diagnosis-copy p { color: var(--muted); margin-bottom: 18px; }
+.diagnosis-copy p strong { color: var(--text); font-weight: 600; }
+.diagnosis-quote {
+  margin-top: 28px; padding: 22px 26px;
+  border-left: 3px solid var(--blue-soft);
+  background: var(--surface); border-radius: 0 12px 12px 0;
+  font-family: var(--font-head); font-size: 24px; font-weight: 600;
+  line-height: 1.25; color: var(--text);
+}
+
+/* ─── VALUE PILLARS ────────────────────────────────────────────────── */
+.pillars { padding: 88px 0; background: var(--deep); border-top: 1px solid var(--rim); border-bottom: 1px solid var(--rim); }
+.pillars-head { max-width: 720px; margin-bottom: 52px; }
+.pillars-head p { color: var(--muted); margin-top: 16px; }
+.pillar-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px;
+}
+.pillar-card {
+  background: var(--surface);
+  border: 1px solid var(--rim); border-radius: 16px;
+  padding: 34px 32px 32px;
+  transition: border-color .25s, transform .25s;
+}
+.pillar-card:hover { border-color: rgba(74,136,255,.5); transform: translateY(-3px); }
+.pillar-icon {
+  width: 44px; height: 44px; border-radius: 11px;
+  background: rgba(26,107,240,.12); border: 1px solid rgba(74,136,255,.3);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+}
+.pillar-card h3 {
+  font-family: var(--font-head); font-size: 27px; font-weight: 800;
+  text-transform: uppercase; line-height: 1; margin-bottom: 12px;
+}
+.pillar-card p { font-size: 15px; color: var(--muted); line-height: 1.7; }
+.pillar-card p strong { color: var(--text); font-weight: 600; }
+
+/* ─── PRINCIPLES ───────────────────────────────────────────────────── */
+.encodes { padding: 96px 0; }
+.encodes-inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 72px; align-items: start; }
+.encodes-left p { color: var(--muted); margin-top: 16px; }
+.principle-row {
+  display: flex; gap: 22px; align-items: baseline;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--rim);
+}
+.principle-row:first-child { padding-top: 4px; }
+.principle-marker {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em;
+  color: var(--blue-soft); flex-shrink: 0; width: 64px;
+}
+.principle-row h4 {
+  font-family: var(--font-head); font-size: 23px; font-weight: 800;
+  text-transform: uppercase; line-height: 1.05; margin-bottom: 6px;
+}
+.principle-row p { font-size: 14.5px; color: var(--muted); line-height: 1.65; }
+
+/* ─── TEAM COLLAB ──────────────────────────────────────────────────── */
+.collab { padding: 88px 0 96px; background: var(--deep); border-top: 1px solid var(--rim); }
+.collab-head { max-width: 740px; margin-bottom: 56px; }
+.collab-head p { color: var(--muted); margin-top: 16px; }
+.collab-head p strong { color: var(--text); }
+.collab-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+.collab-card {
+  background: var(--surface); border: 1px solid var(--rim); border-radius: 16px;
+  padding: 30px 30px 28px;
+  position: relative; overflow: hidden;
+}
+.collab-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.collab-sage::before  { background: linear-gradient(90deg, var(--blue), var(--teal)); }
+.collab-pixel::before { background: linear-gradient(90deg, var(--blue), var(--purple)); }
+.collab-forge::before { background: linear-gradient(90deg, var(--blue), var(--coral)); }
+.collab-pulse::before { background: linear-gradient(90deg, var(--blue), var(--amber)); }
+.collab-pair {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+  font-family: var(--font-head); font-size: 22px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .02em;
+}
+.collab-hex {
+  width: 30px; height: 30px; flex-shrink: 0;
+  clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-head); font-size: 14px; font-weight: 900; color: #fff;
+}
+.hex-atlas { background: var(--blue); }
+.hex-sage  { background: var(--teal); color: #06251E; }
+.hex-pixel { background: var(--purple); }
+.hex-forge { background: var(--coral); }
+.hex-pulse { background: var(--amber); color: #201302; }
+.collab-arrow { color: var(--muted); font-size: 15px; font-family: var(--font-mono); }
+.collab-role {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
+}
+.collab-card h5 {
+  font-family: var(--font-body); font-size: 16px; font-weight: 700;
+  color: var(--text); margin-bottom: 8px;
+}
+.collab-card p { font-size: 14.5px; color: var(--muted); line-height: 1.68; }
+.collab-loop {
+  margin-top: 22px;
+  background: var(--surface); border: 1px solid rgba(74,136,255,.35); border-radius: 16px;
+  padding: 30px 34px;
+  display: flex; gap: 24px; align-items: center;
+}
+.collab-loop-icon { flex-shrink: 0; }
+.collab-loop h5 {
+  font-family: var(--font-head); font-size: 24px; font-weight: 800;
+  text-transform: uppercase; margin-bottom: 6px;
+}
+.collab-loop p { font-size: 15px; color: var(--muted); line-height: 1.68; max-width: 780px; }
+.collab-loop p strong { color: var(--text); }
+
+/* ─── CTA ──────────────────────────────────────────────────────────── */
+.cta-final { padding: 110px 0 120px; text-align: center; position: relative; overflow: hidden; }
+.cta-final::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 55% 55% at 50% 100%, rgba(26,107,240,.12), transparent 65%);
+  pointer-events: none;
+}
+.cta-final .label { margin-bottom: 12px; display: block; }
+.cta-final h2 {
+  font-family: var(--font-head); font-size: clamp(48px, 6.5vw, 76px);
+  font-weight: 900; text-transform: uppercase; line-height: .94;
+  margin-bottom: 18px; position: relative;
+}
+.cta-final p { color: var(--muted); max-width: 580px; margin: 0 auto 34px; position: relative; }
+.cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; }
+.cta-note {
+  margin-top: 22px; font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--muted); position: relative;
+}
+
+/* ─── FOOTER ───────────────────────────────────────────────────────── */
+footer {
+  background: var(--deep);
+  border-top: 1px solid var(--rim);
+  padding: 52px 28px 32px;
+}
+.footer-inner { max-width: 1160px; margin: 0 auto; }
+.footer-top {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+  margin-bottom: 40px;
+}
+.footer-brand p {
+  font-size: 13px; color: var(--muted); line-height: 1.6;
+  max-width: 280px; margin-top: 14px;
+}
+.footer-col h5 {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 12px;
+}
+.footer-col ul li a {
+  display: block; padding: 5px 0;
+  font-size: 13px; line-height: 1.4;
+  color: var(--muted); transition: color .2s;
+}
+.footer-col ul li a:hover { color: var(--blue); }
+.footer-bottom {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 24px; border-top: 1px solid var(--rim);
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--muted); letter-spacing: .06em;
+}
+
+/* ─── RESPONSIVE ───────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .nav-links { display: none !important; }
+  .diagnosis-grid, .encodes-inner { grid-template-columns: 1fr; gap: 36px; }
+  .pillar-grid, .collab-grid { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; gap: 32px; }
+  .collab-loop { flex-direction: column; align-items: flex-start; }
+  .page-hero { padding-top: 130px; }
+  .model-strip-caption { display: none; }
+}
+
+/* ─── MODALS (dialog) — ported from shared site modals ─────────────── */
+/* ─── MODALS (dialog) ──────────────────────────────────────────────── */
+dialog, dialog.ss-modal {
+  background: #0D1528 !important;
+  color: #E8EDF8 !important;
+  border: 1px solid #1A2540 !important;
+  border-radius: 20px !important;
+  padding: 0 !important;
+  max-width: 500px !important;
+  width: calc(100% - 40px) !important;
+  overflow: hidden !important;
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  margin: 0 !important;
+  max-height: 92dvh !important;
+}
+dialog::backdrop { background: rgba(4,8,20,.92); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+dialog.ss-modal .modal-stripe {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+dialog.ss-modal .modal-close {
+  position: absolute; top: 14px; right: 18px;
+  background: none; border: none; color: #7A8FAD;
+  font-size: 24px; cursor: pointer; line-height: 1; z-index: 1;
+}
+dialog.ss-modal .modal-close:hover { color: #E8EDF8; }
+dialog.ss-modal .modal-body { padding: 40px 40px 36px; overflow-y: auto; -webkit-overflow-scrolling: touch; max-height: calc(92dvh - 3px); box-sizing: border-box; }
+.modal-eyebrow {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: .16em; text-transform: uppercase; margin-bottom: 10px;
+}
+dialog.ss-modal h2 {
+  font-family: var(--font-head) !important; font-size: 40px !important;
+  font-weight: 900 !important; text-transform: uppercase !important;
+  color: #E8EDF8 !important; line-height: .94 !important; margin-bottom: 10px !important;
+}
+.modal-sub { font-size: 13px; color: #7A8FAD; margin-bottom: 28px; line-height: 1.65; }
+.modal-label {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em;
+  text-transform: uppercase; color: #7A8FAD; display: block; margin-bottom: 6px;
+}
+.modal-input {
+  width: 100%; background: #111B35; border: 1px solid #1A2540;
+  border-radius: 8px; padding: 11px 14px; color: #E8EDF8;
+  font-family: var(--font-body); font-size: 14px;
+  outline: none; transition: border-color .2s; box-sizing: border-box;
+}
+.modal-input:focus { border-color: var(--blue); }
+.si-input:focus   { border-color: var(--purple); }
+.ct-input:focus   { border-color: var(--teal); }
+.modal-row { margin-bottom: 12px; }
+.modal-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.modal-btn-primary {
+  width: 100%; padding: 15px; border: none; border-radius: 10px;
+  color: #fff; font-family: var(--font-body); font-weight: 700; font-size: 15px;
+  cursor: pointer; letter-spacing: .01em; transition: opacity .2s;
+}
+.modal-btn-primary:hover { opacity: .88; }
+.modal-btn-outline {
+  width: 100%; padding: 13px; background: transparent;
+  border: 1px solid #2A3D5F; border-radius: 10px; color: #E8EDF8;
+  font-family: var(--font-body); font-weight: 600; font-size: 14px;
+  cursor: pointer; transition: border-color .2s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.modal-btn-outline:hover { border-color: var(--purple); }
+.modal-error {
+  display: none; color: var(--coral); font-size: 12px;
+  text-align: center; margin-top: 10px;
+}
+.modal-note {
+  font-family: var(--font-mono); font-size: 11px;
+  color: #7A8FAD; text-align: center; margin-top: 14px; letter-spacing: .04em;
+}
+.modal-divider { display: flex; align-items: center; gap: 12px; margin: 20px 0; }
+.modal-divider-line { flex: 1; height: 1px; background: #1A2540; }
+.modal-divider-text {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: .1em; color: #7A8FAD; text-transform: uppercase;
+}
+.modal-success { display: none; text-align: center; padding: 24px 0; }
+.modal-success-icon {
+  width: 56px; height: 56px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px; font-size: 24px;
+}
+.modal-success h3 {
+  font-family: var(--font-head); font-size: 30px;
+  font-weight: 900; text-transform: uppercase; margin-bottom: 10px;
+}
+.modal-success p { font-size: 14px; color: #7A8FAD; line-height: 1.65; }
+.modal-forgot {
+  display: block; text-align: right; margin-bottom: 24px;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .08em;
+  text-transform: uppercase; color: #7A8FAD; transition: color .2s;
+}
+.modal-forgot:hover { color: var(--purple); }
+.modal-switch {
+  font-family: var(--font-mono); font-size: 11px; color: #7A8FAD;
+  text-align: center; margin-top: 20px; letter-spacing: .04em;
+}
+.modal-switch a { color: var(--blue); }
+.modal-switch a:hover { color: var(--purple); }
+.pw-wrap { position: relative; }
+.pw-toggle {
+  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; color: #7A8FAD; cursor: pointer;
+  font-size: 11px; font-family: var(--font-mono); letter-spacing: .06em;
+}
+@keyframes modal-in {
+  from { opacity: 0; transform: translate(-50%, calc(-50% + 12px)) scale(.97); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+dialog[open] { animation: modal-in .25s ease both; }
+
+@media (max-width: 768px) {
+  dialog.ss-modal { width: calc(100% - 20px) !important; }
+  dialog.ss-modal .modal-body { padding: 32px 22px 28px; }
+  .modal-row-2 { grid-template-columns: 1fr; }
+}
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-mark">S</div>
+      Superhuman Systems
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#agents" class="active" style="color:var(--text)">Product</a></li>
+      <li><a href="index.html#how-it-works">How It Works</a></li>
+      <li><a href="enterprise.html">Enterprise</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="index.html#faq">FAQ</a></li>
+    </ul>
+    <div class="nav-cta">
+      <button class="btn-ghost" onclick="openSignin()" style="display:none">Sign In</button>
+      <button class="btn-primary" onclick="openContact()">Contact Us →</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════ PAGE HERO ════════════ -->
+<section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="container">
+    <div class="page-hero-inner">
+      <div class="breadcrumb fade-up">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb-sep">→</span>
+        <a href="index.html#agents">The Agent Team</a>
+        <span class="breadcrumb-sep">→</span>
+        <span>Atlas</span>
+      </div>
+      <div class="agent-badge fade-up">
+        <span class="agent-badge-dot"></span>
+        Atlas · Product Management Agent · Live in Beta
+      </div>
+      <h1 class="fade-up d1">
+        The sparring partner<br>
+        that <em class="gradient-text">never forgets.</em>
+      </h1>
+      <p class="page-hero-sub fade-up d2">
+        Atlas is the product management intelligence at the centre of Superhuman Systems. It owns your world model — <strong>every decision, signal, and lesson your organisation has ever produced</strong> — runs the full product cycle from discovery through post-launch, and challenges your thinking the way the best PM you've ever worked with would.
+      </p>
+      <div class="hero-actions fade-up d3">
+        <button class="btn-blue" onclick="openWaitlist()">Get Early Access →</button>
+        <button class="btn-outline" onclick="document.getElementById('collab').scrollIntoView({behavior:'smooth'})">See How the Team Works</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ WORLD MODEL STRIP ════ -->
+<div class="model-strip" aria-hidden="true">
+  <svg viewBox="0 0 1440 96" preserveAspectRatio="none">
+    <line class="model-link"    x1="120" y1="48" x2="340" y2="24" />
+    <line class="model-link"    x1="340" y1="24" x2="560" y2="66" />
+    <line class="model-link l2" x1="560" y1="66" x2="790" y2="30" />
+    <line class="model-link l2" x1="790" y1="30" x2="1010" y2="58" />
+    <line class="model-link l3" x1="1010" y1="58" x2="1230" y2="34" />
+    <line class="model-link l3" x1="340" y1="24" x2="790" y2="30" />
+    <circle class="model-node"    cx="120"  cy="48" r="4" />
+    <circle class="model-node n2" cx="340"  cy="24" r="5" />
+    <circle class="model-node n3" cx="560"  cy="66" r="4" />
+    <circle class="model-node n4" cx="790"  cy="30" r="5" />
+    <circle class="model-node n5" cx="1010" cy="58" r="4" />
+    <circle class="model-node n3" cx="1230" cy="34" r="4" />
+  </svg>
+  <span class="model-strip-caption">World model · every decision, signal &amp; lesson</span>
+</div>
+
+<!-- ═══════════════════════════════════ DIAGNOSIS ════════════ -->
+<section class="diagnosis">
+  <div class="container">
+    <div class="diagnosis-grid">
+      <div>
+        <span class="label label-blue">The Problem</span>
+        <h2 class="section-h2">Product orgs ship features. And forget everything.</h2>
+      </div>
+      <div class="diagnosis-copy">
+        <p>
+          Most product organisations run as feature factories: requests come in, roadmaps go out, and success is measured by what shipped — not by what changed. The thinking behind every decision lives in scattered docs, old Slack threads, and people's heads. <strong>And when those people leave, the reasoning leaves with them.</strong>
+        </p>
+        <p>
+          So every cycle starts from scratch. The same debates get re-argued. The same experiments get re-run. The context that should be your organisation's greatest asset quietly walks out the door, one departure at a time.
+        </p>
+        <p>
+          Atlas exists to end both failures at once. It holds the full reasoning behind every product decision your team makes — and it uses that context to hold every new decision to a higher standard.
+        </p>
+        <div class="diagnosis-quote">
+          "The job of product management is not to build things. It is to create customer and business value."
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ VALUE PILLARS ════════ -->
+<section class="pillars">
+  <div class="container">
+    <div class="pillars-head">
+      <span class="label label-blue">What Atlas Does</span>
+      <h2 class="section-h2">A living knowledge repository.<br>With opinions.</h2>
+      <p>Atlas encodes the practice of the world's best product managers — and applies it with the accumulated context of your product, your customers, and every decision your organisation has made.</p>
+    </div>
+    <div class="pillar-grid">
+
+      <div class="pillar-card">
+        <div class="pillar-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4A88FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <h3>Owns your world model</h3>
+        <p>Atlas reads your existing product artefacts, past decisions, customer signals, and strategy — and keeps learning from every cycle. <strong>Institutional memory stops walking out the door.</strong> Six months in, it knows your product better than any new hire could. The context compounds; the reasoning never gets lost.</p>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4A88FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M12 7v5l3 3"/></svg>
+        </div>
+        <h3>Runs the full product cycle</h3>
+        <p>Discovery, opportunity framing, prioritisation, PRDs, specs, launch, post-launch monitoring — Atlas carries the execution weight end to end, holding <strong>all four product risks — value, usability, feasibility, viability — simultaneously,</strong> so nothing ships on an untested assumption.</p>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4A88FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12h8"/><path d="M12 8v8"/><circle cx="12" cy="12" r="10"/></svg>
+        </div>
+        <h3>Spars, doesn't serve</h3>
+        <p>Bring Atlas a feature request and its first move isn't to write the PRD — it's to ask <strong>what problem this solves, and whether this is the best way to solve it.</strong> It surfaces hidden assumptions, runs pre-mortems, and pushes back when outputs are being confused with outcomes. Respectfully. Relentlessly.</p>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4A88FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+        </div>
+        <h3>Coaches while you work</h3>
+        <p>Atlas doesn't just produce answers — it scaffolds the questions a senior PM would ask, right inside the work. <strong>Every cycle makes your PMs sharper,</strong> not more dependent: better interview guides, better framing, better executive narratives, calibrated to the audience in the room.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ ENCODED PRACTICE ═════ -->
+<section class="encodes">
+  <div class="container">
+    <div class="encodes-inner">
+      <div class="encodes-left">
+        <span class="label label-blue">Built-In Judgment</span>
+        <h2 class="section-h2">The discipline of a world-class PM. On every task.</h2>
+        <p>Atlas is built on a blueprint distilled from the highest-signal product management practice in the world — continuous discovery, outcome-driven strategy, evidence-calibrated decision-making. These aren't features. They're standards Atlas holds every product cycle to, in every interaction.</p>
+      </div>
+      <div>
+        <div class="principle-row">
+          <span class="principle-marker">RULE 01</span>
+          <div>
+            <h4>Upstream before downstream</h4>
+            <p>Why before what before how. Atlas refuses to skip the sequence — before any conversation about how to build something, it confirms why it's being built at all.</p>
+          </div>
+        </div>
+        <div class="principle-row">
+          <span class="principle-marker">RULE 02</span>
+          <div>
+            <h4>Outcomes over outputs</h4>
+            <p>Shipping is not succeeding. Every recommendation Atlas makes connects to a specific, measurable outcome — and it flags roadmaps that measure motion instead of progress.</p>
+          </div>
+        </div>
+        <div class="principle-row">
+          <span class="principle-marker">RULE 03</span>
+          <div>
+            <h4>Evidence, calibrated</h4>
+            <p>Atlas names the level of evidence behind every claim — a validated experiment is not a survey, and a survey is not a gut feeling. Opinion never gets to wear data's clothes.</p>
+          </div>
+        </div>
+        <div class="principle-row">
+          <span class="principle-marker">RULE 04</span>
+          <div>
+            <h4>Assumptions, surfaced</h4>
+            <p>Every plan has hidden assumptions. Atlas makes them explicit, ranks them by risk, and designs the cheapest test that produces real signal — before the build, not after.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ TEAM COLLAB ══════════ -->
+<section class="collab" id="collab">
+  <div class="container">
+    <div class="collab-head">
+      <span class="label label-blue">One System, Five Agents</span>
+      <h2 class="section-h2">Atlas conducts.<br>The team delivers.</h2>
+      <p>Atlas sits at the centre of the agent team. It receives the brief, holds the strategy, and orchestrates the specialists — <strong>then challenges their output against the world model before anything reaches you.</strong> Not five tools passing files around. One system, reasoning together.</p>
+    </div>
+    <div class="collab-grid">
+
+      <div class="collab-card collab-sage">
+        <div class="collab-pair">
+          <div class="collab-hex hex-atlas">A</div>
+          <span>Atlas</span>
+          <span class="collab-arrow">⟷</span>
+          <div class="collab-hex hex-sage">S</div>
+          <span>Sage</span>
+        </div>
+        <div class="collab-role">Product Strategy ⟷ User Research</div>
+        <h5>Discovery grounds every decision.</h5>
+        <p>Atlas frames the questions that matter; Sage's continuous discovery answers them with real customer signal. Opportunities get mapped to outcomes, and no solution enters the roadmap without the customer evidence behind it — a discovery habit, not a kickoff ritual.</p>
+      </div>
+
+      <div class="collab-card collab-pixel">
+        <div class="collab-pair">
+          <div class="collab-hex hex-atlas">A</div>
+          <span>Atlas</span>
+          <span class="collab-arrow">⟷</span>
+          <div class="collab-hex hex-pixel">P</div>
+          <span>Pixel</span>
+        </div>
+        <div class="collab-role">Product Strategy ⟷ Design Intelligence</div>
+        <h5>Strategy becomes experience.</h5>
+        <p>Atlas hands Pixel the full strategic context — the outcome, the opportunity, the constraints — so design work starts from intent, not from a ticket. Usability risk gets tested where it's cheapest to fix: before the spec is locked.</p>
+      </div>
+
+      <div class="collab-card collab-forge">
+        <div class="collab-pair">
+          <div class="collab-hex hex-atlas">A</div>
+          <span>Atlas</span>
+          <span class="collab-arrow">⟷</span>
+          <div class="collab-hex hex-forge">F</div>
+          <span>Forge</span>
+        </div>
+        <div class="collab-role">Product Strategy ⟷ Engineering Bridge</div>
+        <h5>No commitments without feasibility.</h5>
+        <p>Forge pressure-tests every concept against technical reality before it reaches engineering — effort, dependencies, scope risk. Atlas never lets a roadmap promise something the codebase can't deliver, and scope creep gets flagged before it lands in a sprint.</p>
+      </div>
+
+      <div class="collab-card collab-pulse">
+        <div class="collab-pair">
+          <div class="collab-hex hex-atlas">A</div>
+          <span>Atlas</span>
+          <span class="collab-arrow">⟷</span>
+          <div class="collab-hex hex-pulse">P</div>
+          <span>Pulse</span>
+        </div>
+        <div class="collab-role">Product Strategy ⟷ Product Marketing</div>
+        <h5>Built to be bought, not just built.</h5>
+        <p>Pulse brings market evidence into roadmap conversations, and Atlas gives Pulse the strategy behind every decision — so the story and the product are developed together, and every cycle lands with the right narrative. <a href="pulse.html" style="color:var(--blue-soft)">Meet Pulse →</a></p>
+      </div>
+
+    </div>
+
+    <div class="collab-loop">
+      <div class="collab-loop-icon">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#4A88FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><polyline points="21 3 21 9 15 9"/></svg>
+      </div>
+      <div>
+        <h5>And everything flows back into the world model.</h5>
+        <p>Every decision made, every signal observed, every lesson learned — from all five agents and every human in the loop — lands in the shared context Atlas maintains. <strong>The system gets smarter with every cycle, and none of it ever walks out the door.</strong> That's the difference between an operating model and a stack of tools.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ CTA ══════════════════ -->
+<section class="cta-final">
+  <div class="container">
+    <span class="label label-blue">Live in Beta</span>
+    <h2>Run one real cycle.<br><em class="gradient-text">Compare the difference.</em></h2>
+    <p>Atlas is live in beta with product teams today. Onboarding starts with your existing artefacts and decisions — then you run a real product cycle, discovery through spec, with Atlas as your sparring partner. Human sign-off on every output. Your context stays yours.</p>
+    <div class="cta-actions">
+      <button class="btn-blue" onclick="openWaitlist()">Join the Waitlist →</button>
+      <button class="btn-outline" onclick="openContact()">Talk to the Founders</button>
+    </div>
+    <div class="cta-note">Enterprise-ready · Deploys in your cloud · Human sign-off on every output</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <div class="logo-mark">S</div>
+          Superhuman Systems
+        </a>
+        <p>The operating system for the AI-native product function. Five collaborating agents. One system. Built for 2026 — not retrofitted for it.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Product</h5>
+        <ul>
+          <li><a href="index.html#agents">The Agent Team</a></li>
+          <li><a href="atlas.html">Atlas Deep Dive</a></li>
+          <li><a href="pulse.html">Pulse Deep Dive</a></li>
+          <li><a href="index.html#how-it-works">How It Works</a></li>
+          <li><a href="enterprise.html">Enterprise</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="#" onclick="openContact();return false;">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Superhuman Systems. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.animation = 'fade-up .7s ease both';
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.pillar-card, .principle-row, .collab-card, .collab-loop').forEach(el => {
+    el.style.opacity = '0';
+    observer.observe(el);
+  });
+</script>
+
+<dialog id="wl-dialog" class="ss-modal" style="background:#0D1528;color:#E8EDF8;border:1px solid #1A2540;border-radius:20px;padding:0;max-width:500px;width:calc(100% - 40px);overflow:hidden">
+  <div class="modal-stripe" style="background:linear-gradient(90deg,#1A6BF0,#7B35E8)"></div>
+  <button class="modal-close" onclick="closeWaitlist()">&#215;</button>
+  <div class="modal-body">
+    <div class="modal-eyebrow" style="color:#1A6BF0">Early Access</div>
+    <h2>Join the<br>Waitlist</h2>
+    <p class="modal-sub">We're onboarding enterprise product teams by invitation only. Secure your spot below.</p>
+
+    <div id="wl-form">
+      <div class="modal-row-2">
+        <div>
+          <label class="modal-label">First Name</label>
+          <input class="modal-input" id="wl-fname" type="text" placeholder="Alex" autocomplete="given-name"/>
+        </div>
+        <div>
+          <label class="modal-label">Last Name</label>
+          <input class="modal-input" id="wl-lname" type="text" placeholder="Chen" autocomplete="family-name"/>
+        </div>
+      </div>
+      <div class="modal-row">
+        <label class="modal-label">Work Email</label>
+        <input class="modal-input" id="wl-email" type="email" placeholder="alex@company.com" autocomplete="email"/>
+      </div>
+      <div class="modal-row">
+        <label class="modal-label">Company</label>
+        <input class="modal-input" id="wl-company" type="text" placeholder="Acme Corp" autocomplete="organization"/>
+      </div>
+      <div class="modal-row" style="margin-bottom:24px">
+        <label class="modal-label">Your Role</label>
+        <select class="modal-input" id="wl-role">
+          <option value="" disabled selected>Select your role</option>
+          <option>CPO / Chief Product Officer</option>
+          <option>VP of Product</option>
+          <option>Director of Product</option>
+          <option>Head of Product</option>
+          <option>Senior PM / PM</option>
+          <option>Founder / CEO</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <button id="wl-submit" class="modal-btn-primary" style="background:linear-gradient(90deg,#1A6BF0,#7B35E8)" onclick="submitWaitlist()">Request Early Access &#8594;</button>
+      <p id="wl-error" class="modal-error"></p>
+      <p class="modal-note">No spam. We only reach out when your slot is ready.</p>
+    </div>
+
+    <div id="wl-success" class="modal-success">
+      <div class="modal-success-icon" style="background:rgba(0,196,163,.15);border:1px solid rgba(0,196,163,.3);color:#00C4A3">&#10003;</div>
+      <h3 style="color:#00C4A3">You're on the list.</h3>
+      <p>We'll be in touch when your slot is ready.<br>Keep an eye on your inbox.</p>
+    </div>
+  </div>
+</dialog>
+
+<!-- ═══ SIGN IN DIALOG ════════════════════════════════════════════ -->
+<dialog id="si-dialog" class="ss-modal" style="background:#0D1528;color:#E8EDF8;border:1px solid #1A2540;border-radius:20px;padding:0;max-width:500px;width:calc(100% - 40px);overflow:hidden">
+  <div class="modal-stripe" style="background:linear-gradient(90deg,#7B35E8,#1A6BF0)"></div>
+  <button class="modal-close" onclick="closeSignin()">&#215;</button>
+  <div class="modal-body">
+    <div class="modal-eyebrow" style="color:#7B35E8">Welcome Back</div>
+    <h2>Sign In</h2>
+    <p class="modal-sub">Access your Superhuman Systems workspace.</p>
+
+    <div id="si-form">
+      <div class="modal-row">
+        <label class="modal-label">Work Email</label>
+        <input class="modal-input si-input" id="si-email" type="email" placeholder="alex@company.com" autocomplete="email"/>
+      </div>
+      <div class="modal-row">
+        <label class="modal-label">Password</label>
+        <div class="pw-wrap">
+          <input class="modal-input si-input" id="si-password" type="password" placeholder="&#183;&#183;&#183;&#183;&#183;&#183;&#183;&#183;" autocomplete="current-password"/>
+          <button class="pw-toggle" type="button" id="pw-btn" onclick="togglePassword()">SHOW</button>
+        </div>
+      </div>
+      <a href="#" class="modal-forgot">Forgot password?</a>
+      <button id="si-submit" class="modal-btn-primary" style="background:linear-gradient(90deg,#7B35E8,#1A6BF0)" onclick="submitSignin()">Sign In &#8594;</button>
+      <p id="si-error" class="modal-error"></p>
+
+      <div class="modal-divider">
+        <div class="modal-divider-line"></div>
+        <span class="modal-divider-text">or</span>
+        <div class="modal-divider-line"></div>
+      </div>
+      <button class="modal-btn-outline" onclick="submitSignin('sso')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Continue with SSO
+      </button>
+      <p class="modal-switch">Don't have access? <a href="#" onclick="closeSignin();openWaitlist();return false;">Join the waitlist &#8594;</a></p>
+    </div>
+
+    <div id="si-success" class="modal-success">
+      <div class="modal-success-icon" style="background:rgba(123,53,232,.15);border:1px solid rgba(123,53,232,.3);color:#7B35E8">&#10003;</div>
+      <h3 style="color:#7B35E8">Signed In.</h3>
+      <p>Redirecting to your workspace&#8230;</p>
+    </div>
+  </div>
+</dialog>
+
+<!-- ═══ MODAL SCRIPTS ════════════════════════════════════════════ -->
+<script>
+  
+  /* ── Scroll lock ──────────────────────────── */
+  function lockScroll()   { document.documentElement.style.overflow = 'hidden'; }
+  function unlockScroll() { document.documentElement.style.overflow = ''; }
+  /* ── Close all modals helper ──────────────── */
+  function closeAll() {
+    ['wl-dialog','si-dialog','ct-dialog'].forEach(id => {
+      const d = document.getElementById(id);
+      if (d && d.open) d.close();
+    });
+    unlockScroll();
+  }
+
+  /* ── Waitlist ──────────────────────────────── */
+  function openWaitlist() {
+    closeAll();
+    const d = document.getElementById('wl-dialog');
+    document.getElementById('wl-form').style.display = 'block';
+    document.getElementById('wl-success').style.display = 'none';
+    document.getElementById('wl-error').style.display = 'none';
+    ['wl-fname','wl-lname','wl-email','wl-company'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    const role = document.getElementById('wl-role');
+    if (role) role.selectedIndex = 0;
+    const btn = document.getElementById('wl-submit');
+    if (btn) { btn.textContent = 'Request Early Access →'; btn.style.opacity = '1'; btn.disabled = false; }
+    d.showModal(); lockScroll();
+  }
+  function closeWaitlist() { document.getElementById('wl-dialog').close(); unlockScroll(); }
+
+  async function submitWaitlist() {
+    const firstName = document.getElementById('wl-fname').value.trim();
+    const lastName  = document.getElementById('wl-lname').value.trim();
+    const email     = document.getElementById('wl-email').value.trim();
+    const company   = document.getElementById('wl-company').value.trim();
+    const role      = document.getElementById('wl-role').value;
+    const errEl     = document.getElementById('wl-error');
+    const btn       = document.getElementById('wl-submit');
+    errEl.style.display = 'none';
+    if (!firstName || !lastName || !email || !company || !role) {
+      errEl.textContent = 'Please fill in all fields.'; errEl.style.display = 'block'; return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errEl.textContent = 'Please enter a valid work email.'; errEl.style.display = 'block'; return;
+    }
+    btn.textContent = 'Submitting…'; btn.style.opacity = '.6'; btn.disabled = true;
+    try {
+      const res = await fetch('https://hook.eu1.make.com/3cq0wpstoudqs6dhfs7w1cas1pgewfu2', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstName, lastName, email, company, role })
+      });
+      if (res.ok) {
+        document.getElementById('wl-form').style.display = 'none';
+        document.getElementById('wl-success').style.display = 'block';
+        setTimeout(closeWaitlist, 2800);
+      } else { throw new Error(); }
+    } catch(e) {
+      errEl.textContent = 'Something went wrong. Please try again.'; errEl.style.display = 'block';
+      btn.textContent = 'Request Early Access →'; btn.style.opacity = '1'; btn.disabled = false;
+    }
+  }
+
+  /* ── Sign In ───────────────────────────────── */
+  function openSignin() {
+    closeAll();
+    const d = document.getElementById('si-dialog');
+    document.getElementById('si-form').style.display = 'block';
+    document.getElementById('si-success').style.display = 'none';
+    document.getElementById('si-error').style.display = 'none';
+    const em = document.getElementById('si-email'); if (em) em.value = '';
+    const pw = document.getElementById('si-password'); if (pw) { pw.value = ''; pw.type = 'password'; }
+    const btn = document.getElementById('pw-btn'); if (btn) btn.textContent = 'SHOW';
+    const sbtn = document.getElementById('si-submit');
+    if (sbtn) { sbtn.textContent = 'Sign In →'; sbtn.style.opacity = '1'; sbtn.disabled = false; }
+    d.showModal(); lockScroll();
+  }
+  function closeSignin() { document.getElementById('si-dialog').close(); unlockScroll(); }
+
+  function togglePassword() {
+    const inp = document.getElementById('si-password');
+    const btn = document.getElementById('pw-btn');
+    if (inp.type === 'password') { inp.type = 'text'; btn.textContent = 'HIDE'; }
+    else { inp.type = 'password'; btn.textContent = 'SHOW'; }
+  }
+
+  async function submitSignin(method) {
+    const email = document.getElementById('si-email').value.trim();
+    const pass  = document.getElementById('si-password').value;
+    const errEl = document.getElementById('si-error');
+    const btn   = document.getElementById('si-submit');
+    errEl.style.display = 'none';
+    if (method !== 'sso') {
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        errEl.textContent = 'Please enter a valid work email.'; errEl.style.display = 'block'; return;
+      }
+      if (!pass) { errEl.textContent = 'Please enter your password.'; errEl.style.display = 'block'; return; }
+    }
+    btn.textContent = 'Signing in…'; btn.style.opacity = '.6'; btn.disabled = true;
+    setTimeout(() => {
+      document.getElementById('si-form').style.display = 'none';
+      document.getElementById('si-success').style.display = 'block';
+    }, 1200);
+  }
+
+  /* ── Close on backdrop click ───────────────── */
+  document.getElementById('wl-dialog').addEventListener('click', function(e) {
+    if (e.target === this) { closeWaitlist(); }
+  });
+  document.getElementById('si-dialog').addEventListener('click', function(e) {
+    if (e.target === this) { closeSignin(); }
+  });
+</script>
+
+<!-- ═══ CONTACT DIALOG ═══════════════════════════════════════════ -->
+<dialog id="ct-dialog" class="ss-modal" style="background:#0D1528;color:#E8EDF8;border:1px solid #1A2540;border-radius:20px;padding:0;max-width:500px;width:calc(100% - 40px);overflow:hidden">
+  <div class="modal-stripe" style="background:linear-gradient(90deg,#00C4A3,#1A6BF0)"></div>
+  <button class="modal-close" onclick="closeContact()">&#215;</button>
+  <div class="modal-body">
+    <div class="modal-eyebrow" style="color:#00C4A3">Get in Touch</div>
+    <h2>Contact<br>Us</h2>
+    <p class="modal-sub">Tell us about your organisation and what you're trying to solve. We'll be in touch within one business day.</p>
+
+    <div id="ct-form">
+      <div class="modal-row-2">
+        <div>
+          <label class="modal-label">First Name</label>
+          <input class="modal-input ct-input" id="ct-fname" type="text" placeholder="Alex" autocomplete="given-name"/>
+        </div>
+        <div>
+          <label class="modal-label">Last Name</label>
+          <input class="modal-input ct-input" id="ct-lname" type="text" placeholder="Chen" autocomplete="family-name"/>
+        </div>
+      </div>
+      <div class="modal-row">
+        <label class="modal-label">Work Email</label>
+        <input class="modal-input ct-input" id="ct-email" type="email" placeholder="alex@company.com" autocomplete="email"/>
+      </div>
+      <div class="modal-row">
+        <label class="modal-label">Company</label>
+        <input class="modal-input ct-input" id="ct-company" type="text" placeholder="Acme Corp" autocomplete="organization"/>
+      </div>
+      <div class="modal-row" style="margin-bottom:24px">
+        <label class="modal-label">Message</label>
+        <textarea class="modal-input ct-input" id="ct-message" rows="4" placeholder="Tell us what you're trying to solve&#8230;" style="resize:vertical;min-height:96px;line-height:1.55"></textarea>
+      </div>
+      <button id="ct-submit" class="modal-btn-primary" style="background:linear-gradient(90deg,#00C4A3,#1A6BF0)" onclick="submitContact()">Send Message &#8594;</button>
+      <p id="ct-error" class="modal-error"></p>
+      <p class="modal-note">We respond within one business day.</p>
+    </div>
+
+    <div id="ct-success" class="modal-success">
+      <div class="modal-success-icon" style="background:rgba(0,196,163,.15);border:1px solid rgba(0,196,163,.3);color:#00C4A3">&#10003;</div>
+      <h3 style="color:#00C4A3">Message sent.</h3>
+      <p>We'll be back to you within one business day.</p>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  /* ── Contact ───────────────────────────────── */
+  function openContact() {
+    closeAll();
+    const d = document.getElementById('ct-dialog');
+    document.getElementById('ct-form').style.display = 'block';
+    document.getElementById('ct-success').style.display = 'none';
+    document.getElementById('ct-error').style.display = 'none';
+    ['ct-fname','ct-lname','ct-email','ct-company','ct-message'].forEach(id => {
+      const el = document.getElementById(id); if (el) el.value = '';
+    });
+    const btn = document.getElementById('ct-submit');
+    if (btn) { btn.textContent = 'Send Message →'; btn.style.opacity = '1'; btn.disabled = false; }
+    d.showModal(); lockScroll();
+  }
+  function closeContact() { document.getElementById('ct-dialog').close(); unlockScroll(); }
+
+  async function submitContact() {
+    const firstName = document.getElementById('ct-fname').value.trim();
+    const lastName  = document.getElementById('ct-lname').value.trim();
+    const email     = document.getElementById('ct-email').value.trim();
+    const company   = document.getElementById('ct-company').value.trim();
+    const message   = document.getElementById('ct-message').value.trim();
+    const errEl     = document.getElementById('ct-error');
+    const btn       = document.getElementById('ct-submit');
+    errEl.style.display = 'none';
+    if (!firstName || !lastName || !email || !company || !message) {
+      errEl.textContent = 'Please fill in all fields.'; errEl.style.display = 'block'; return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errEl.textContent = 'Please enter a valid work email.'; errEl.style.display = 'block'; return;
+    }
+    btn.textContent = 'Sending…'; btn.style.opacity = '.6'; btn.disabled = true;
+    try {
+      const res = await fetch('https://hook.eu1.make.com/et68yxudfsmajw9v3my8vvgqgemqwyzs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstName, lastName, email, company, message })
+      });
+      if (res.ok) {
+        document.getElementById('ct-form').style.display = 'none';
+        document.getElementById('ct-success').style.display = 'block';
+        setTimeout(closeContact, 2800);
+      } else { throw new Error(); }
+    } catch(e) {
+      errEl.textContent = 'Something went wrong. Please try again.'; errEl.style.display = 'block';
+      btn.textContent = 'Send Message →'; btn.style.opacity = '1'; btn.disabled = false;
+    }
+  }
+
+  document.getElementById('ct-dialog').addEventListener('click', function(e) {
+    if (e.target === this) closeContact();
+  });
+</script>
+
+</body>
+</html>
