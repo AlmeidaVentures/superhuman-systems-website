@@ -81,13 +81,6 @@ nav {
   font-family: var(--font-head); font-size: 19px; font-weight: 700;
   letter-spacing: .02em; color: #E8EDF8; text-decoration: none;
 }
-.logo-mark {
-  width: 34px; height: 34px; flex-shrink: 0;
-  background: linear-gradient(135deg, var(--blue), var(--purple));
-  clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-head); font-size: 16px; font-weight: 900; color: #fff;
-}
 .nav-links {
   display: flex; align-items: center; gap: 32px;
   list-style: none;
@@ -455,7 +448,12 @@ dialog[open] { animation: modal-in .25s ease both; }
 }
 
 
-  </style>
+  
+/* wordmark logo */
+.logo img { height: 24px; width: auto; display: block; }
+footer .logo img { height: 22px; }
+@media (max-width: 720px) { .logo img { height: 17px; } footer .logo img { height: 17px; } }
+</style>
 </head>
 <body>
 
@@ -464,8 +462,7 @@ dialog[open] { animation: modal-in .25s ease both; }
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="logo">
-      <div class="logo-mark">S</div>
-      Superhuman Systems
+      <img src="logo.png" alt="Superhuman Systems">
     </a>
     <ul class="nav-links">
       <li><a href="index.html#agents">Product</a></li>
@@ -707,8 +704,7 @@ dialog[open] { animation: modal-in .25s ease both; }
     <div class="footer-top">
       <div class="footer-brand">
         <a href="index.html" class="logo">
-          <div class="logo-mark">S</div>
-          Superhuman Systems
+          <img src="logo.png" alt="Superhuman Systems">
         </a>
         <p>The operating system for the AI-native product function. Five collaborating agents. One system. Built for 2026 — not retrofitted for it.</p>
       </div>
