@@ -398,6 +398,24 @@ dialog[open] { animation: modal-in .25s ease both; }
 .nav-drop-menu-inner a{display:block;padding:9px 18px;color:#9AA7C7;font-size:14px;font-weight:500;text-decoration:none;transition:color .15s ease}
 .nav-drop-menu-inner a:hover{color:#EAF0FF;background:rgba(154,167,199,0.08)}
 .nav-drop-caret{font-size:10px;margin-left:4px;opacity:.7}
+
+/* ─── MOBILE NAV (hamburger) ───────────────────────────────────────── */
+.nav-burger{display:none;flex:none;background:none;border:0;cursor:pointer;padding:8px;margin-left:8px}
+.nav-burger span{display:block;width:23px;height:2px;background:#EAF0FF;border-radius:2px;margin:5px 0;transition:transform .2s ease,opacity .2s ease}
+.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-burger.open span:nth-child(2){opacity:0}
+.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.nav-mobile{display:none;position:fixed;top:66px;left:0;right:0;z-index:99;background:rgba(10,18,48,0.98);border-bottom:1px solid rgba(154,167,199,0.3);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 16px 40px rgba(0,0,0,.4)}
+.nav-mobile.open{display:block}
+.nav-mobile a{display:block;padding:15px 32px;color:#EAF0FF;text-decoration:none;font-size:16px;font-weight:600;font-family:'Inter',system-ui,-apple-system,sans-serif;border-top:1px solid rgba(154,167,199,0.12)}
+.nav-mobile a:first-child{border-top:0}
+.nav-mobile a.sub{padding-left:50px;font-weight:500;color:#9AA7C7;font-size:15px}
+.nav-mobile a.cta{color:#00D2B4}
+@media(max-width:900px){
+  .nav-burger{display:block}
+  .brand-logo{height:19px !important}
+  .nav-actions{display:none !important}
+}
 </style>
 </head>
 <body>
@@ -426,6 +444,18 @@ dialog[open] { animation: modal-in .25s ease both; }
       <a href="#" class="nav-signin" style="display:none" onclick="openSignin();return false;">Sign In</a>
       <a href="#" class="nav-contact" onclick="openContact();return false;">Contact Us →</a>
     </div>
+        <button class="nav-burger" aria-label="Toggle menu" onclick="this.classList.toggle('open');document.getElementById('navMobile').classList.toggle('open');">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  <div class="nav-mobile" id="navMobile">
+    <a href="platform.html">Platform</a>
+    <a class="sub" href="atlas.html">Atlas</a>
+    <a class="sub" href="pulse.html">Pulse</a>
+    <a href="enterprise.html">Enterprise</a>
+    <a href="about.html">About</a>
+    <a href="platform.html#faq">FAQ</a>
+    <a class="cta" href="#" onclick="openContact();return false;">Contact Us →</a>
   </div>
 </nav>
 
