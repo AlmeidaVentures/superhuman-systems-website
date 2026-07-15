@@ -389,6 +389,15 @@ dialog[open] { animation: modal-in .25s ease both; }
   dialog.ss-modal .modal-body { padding: 32px 22px 28px; }
   .modal-row-2 { grid-template-columns: 1fr; }
 }
+
+/* ─── PRODUCT DROPDOWN ─────────────────────────────────────────────── */
+.nav-drop{position:relative;display:inline-flex}
+.nav-drop-menu{position:absolute;top:100%;left:-16px;padding-top:12px;display:none;z-index:60}
+.nav-drop:hover .nav-drop-menu,.nav-drop:focus-within .nav-drop-menu{display:block}
+.nav-drop-menu-inner{background:rgba(10,18,48,0.97);border:1px solid rgba(154,167,199,0.3);border-radius:10px;padding:8px 0;min-width:160px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 12px 30px rgba(0,0,0,.35)}
+.nav-drop-menu-inner a{display:block;padding:9px 18px;color:#9AA7C7;font-size:14px;font-weight:500;text-decoration:none;transition:color .15s ease}
+.nav-drop-menu-inner a:hover{color:#EAF0FF;background:rgba(154,167,199,0.08)}
+.nav-drop-caret{font-size:10px;margin-left:4px;opacity:.7}
 </style>
 </head>
 <body>
@@ -401,7 +410,14 @@ dialog[open] { animation: modal-in .25s ease both; }
       <span class="wordmark" style="display:none">SUPERHUMAN<span>/</span>SYS</span>
     </a>
     <div class="nav-links">
-      <a href="platform.html#agents">Product</a>
+      <div class="nav-drop">
+        <a href="platform.html#agents">Product <span class="nav-drop-caret">▾</span></a>
+        <div class="nav-drop-menu"><div class="nav-drop-menu-inner">
+          <a href="platform.html#agents">Platform</a>
+          <a href="atlas.html">Atlas</a>
+          <a href="pulse.html">Pulse</a>
+        </div></div>
+      </div>
       <a href="platform.html#how-it-works">How It Works</a>
       <a href="enterprise.html">Enterprise</a>
       <a href="about.html">About</a>
@@ -644,7 +660,6 @@ dialog[open] { animation: modal-in .25s ease both; }
     <div class="closer">
       <div class="closer-line display">The question was never <em>build vs. buy.</em><br>It's whether you keep optimizing the <em>old operating system</em> — or move to the one built for what's already here.</div>
       <p class="closer-sub">See what a pre-calibrated product operating system does in your first 90 days — plugged into your stack, measured against your goals, and yours to keep or walk away from.</p>
-      <div class="closer-cta"><a href="#" class="btn btn-primary" onclick="openContact();return false;">Start a 90-day pilot →</a></div>
     </div>
   </div>
 </section>
