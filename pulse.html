@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pulse — The Product Marketing Agent | Superhuman Systems</title>
   <meta name="description" content="Pulse is the product marketing agent inside Superhuman Systems. It holds your positioning, reads your market, and makes every product cycle land with the right story." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&family=Syne+Mono&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Syne+Mono&display=swap" rel="stylesheet" />
   <style>
 
 /* ─── TOKENS ──────────────────────────────────────────────────────── */
@@ -517,25 +517,56 @@ dialog[open] { animation: modal-in .25s ease both; }
 .logo img { height: 24px; width: auto; display: block; }
 footer .logo img { height: 22px; }
 @media (max-width: 720px) { .logo img { height: 17px; } footer .logo img { height: 17px; } }
+
+/* ─── UNIFIED HEADER ───────────────────────────────────────────────── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 32px;background:rgba(10,18,48,0.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(154,167,199,0.16)}
+.nav-shell{max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:66px;gap:24px}
+.brand{display:flex;align-items:center;text-decoration:none;flex:none}
+.brand-logo{height:28px;width:auto;display:block}
+.nav-links{display:flex;align-items:center;gap:28px;margin-left:auto}
+.nav-links > a,.nav-drop > a{color:#9AA7C7;text-decoration:none;font-size:14.5px;font-weight:500;font-family:'Inter',system-ui,-apple-system,sans-serif;transition:color .15s ease}
+.nav-links > a:hover,.nav-drop > a:hover{color:#EAF0FF}
+.nav-actions{display:flex;align-items:center;gap:20px;flex:none}
+.nav-signin{color:#9AA7C7;text-decoration:none;font-size:14.5px;font-weight:500;font-family:'Inter',system-ui,-apple-system,sans-serif}
+.nav-signin:hover{color:#EAF0FF}
+.nav-contact{color:#EAF0FF;text-decoration:none;font-size:14.5px;font-weight:600;font-family:'Inter',system-ui,-apple-system,sans-serif}
+.nav-contact:hover{color:#00D2B4}
+@media(max-width:900px){.nav-links{display:none}}
+
+/* ─── PRODUCT DROPDOWN ─────────────────────────────────────────────── */
+.nav-drop{position:relative;display:inline-flex}
+.nav-drop-menu{position:absolute;top:100%;left:-16px;padding-top:12px;display:none;z-index:60}
+.nav-drop:hover .nav-drop-menu,.nav-drop:focus-within .nav-drop-menu{display:block}
+.nav-drop-menu-inner{background:rgba(10,18,48,0.97);border:1px solid rgba(154,167,199,0.3);border-radius:10px;padding:8px 0;min-width:160px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 12px 30px rgba(0,0,0,.35)}
+.nav-drop-menu-inner a{display:block;padding:9px 18px;color:#9AA7C7;font-size:14px;font-weight:500;text-decoration:none;transition:color .15s ease}
+.nav-drop-menu-inner a:hover{color:#EAF0FF;background:rgba(154,167,199,0.08)}
+.nav-drop-caret{font-size:10px;margin-left:4px;opacity:.7}
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-inner">
-    <a href="index.html" class="logo">
-      <img src="logo.png" alt="Superhuman Systems">
+  <div class="nav-shell">
+    <a class="brand" href="index.html" aria-label="Superhuman Systems">
+      <img src="logo.png" alt="Superhuman Systems" class="brand-logo">
     </a>
-    <ul class="nav-links">
-      <li><a href="platform.html#agents" class="active" style="color:var(--text)">Product</a></li>
-      <li><a href="platform.html#how-it-works">How It Works</a></li>
-      <li><a href="enterprise.html">Enterprise</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="platform.html#faq">FAQ</a></li>
-    </ul>
-    <div class="nav-cta">
-      <button class="btn-ghost" onclick="openSignin()" style="display:none">Sign In</button>
-      <button class="btn-primary" onclick="openContact()">Contact Us →</button>
+    <div class="nav-links">
+      <div class="nav-drop">
+        <a href="platform.html#agents" style="color:#EAF0FF">Product <span class="nav-drop-caret">▾</span></a>
+        <div class="nav-drop-menu"><div class="nav-drop-menu-inner">
+          <a href="platform.html#agents">Platform</a>
+          <a href="atlas.html">Atlas</a>
+          <a href="pulse.html">Pulse</a>
+        </div></div>
+      </div>
+      <a href="platform.html#how-it-works">How It Works</a>
+      <a href="enterprise.html">Enterprise</a>
+      <a href="about.html">About</a>
+      <a href="platform.html#faq">FAQ</a>
+    </div>
+    <div class="nav-actions">
+      <a href="#" class="nav-signin" style="display:none" onclick="openSignin();return false;">Sign In</a>
+      <a href="#" class="nav-contact" onclick="openContact();return false;">Contact Us →</a>
     </div>
   </div>
 </nav>
