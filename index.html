@@ -877,7 +877,7 @@ dialog[open] { animation: modal-in .25s ease both; }
       const res = await fetch('https://hook.eu1.make.com/3cq0wpstoudqs6dhfs7w1cas1pgewfu2', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ firstName, lastName, email, company, role })
+        body: JSON.stringify({ name: (firstName + ' ' + lastName).trim(), fullName: (firstName + ' ' + lastName).trim(), firstName, lastName, email, company, role })
       });
       if (res.ok) {
         document.getElementById('wl-form').style.display = 'none';
@@ -1023,7 +1023,7 @@ dialog[open] { animation: modal-in .25s ease both; }
       const res = await fetch('https://hook.eu1.make.com/et68yxudfsmajw9v3my8vvgqgemqwyzs', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ firstName, lastName, email, company, message })
+        body: JSON.stringify({ name: (firstName + ' ' + lastName).trim(), fullName: (firstName + ' ' + lastName).trim(), firstName, lastName, email, company, message })
       });
       if (res.ok) {
         document.getElementById('ct-form').style.display = 'none';
