@@ -902,6 +902,60 @@ dialog[open] { animation: modal-in .25s ease both; }
           <a href="enterprise.html">enterprise architecture page</a>.
         </div>
       </details>
+      <details>
+        <summary>We already have Claude wired to our systems with MCP and connectors. What does this add?</summary>
+        <div class="ans">
+          Connectors give a model reach, not memory. Even with MCP wired to every system of record, you still force the model to re-read the org on every prompt — and the answer it produces lives in one person's window, invisible to everyone else. The difference is the context-synthesis layer: a harness that already knows what the org is doing, holds it as a token-optimised knowledge graph, and reads from that instead of re-deriving it each time. <b>Connectors are table stakes. The layer is what compounds</b> — one org-level source of truth, not every person praying they wired the same connectors.
+        </div>
+      </details>
+      <details>
+        <summary>Can we use it through the tools we already live in — Claude, Gemini, Slack?</summary>
+        <div class="ans">
+          Yes. The system is headless — it runs off the layer and speaks through whatever interface your teams already use. All it needs is an API to post and read messages, so Slack, Claude, Gemini, or a mix all work, and it uses what each channel offers — charts and images in Slack, decks in Google Slides. <b>You don't move your people to a new tool. The layer meets them where they already work.</b>
+        </div>
+      </details>
+      <details>
+        <summary>How does it stay current — and track how a decision changed over time?</summary>
+        <div class="ans">
+          The layer is refreshed every cycle, not snapshotted the day you connect it. Documents the org keeps referencing are treated as live; ones that fall out of use are captured for their essence and dropped from the active graph, so it doesn't rot under its own weight. And because every decision is held with its owner and rationale, you see not just the current stance but how it got there — <b>the reasoning, not just the ruling.</b>
+        </div>
+      </details>
+      <details>
+        <summary>What happens if something wrong gets into the layer?</summary>
+        <div class="ans">
+          Every answer shows the source it came from, so you can always see where a claim lives. If it's wrong, you correct it at the source or flag it, and the layer updates its memory. Nothing propagates silently: when a change conflicts with the org's stated goals, the system sends a proactive alert to the person making it and the owner of what's affected. <b>It flags the mismatch for a human to resolve — it never overwrites on your behalf.</b>
+        </div>
+      </details>
+      <details>
+        <summary>Can we build our own agents and skills on top?</summary>
+        <div class="ans">
+          Yes. Beyond the named agents, you can define specialised agents and the skills and guardrails around them, and we deploy them against your layer. We're also opening a skill library inside your org — you publish your own skills and Atlas picks them up — so the way your best people work becomes something the whole org can reuse, <b>not something locked in one person's chat window.</b>
+        </div>
+      </details>
+      <details>
+        <summary>How do we know the agents are any good — and stay good?</summary>
+        <div class="ans">
+          Every model and skill we deploy runs against evaluations out of the box. In a pilot we share those evals, tune the judges to your context, and calibrate both the tone and the outcomes of each skill to how your org actually works — because your way of working is distinct and worth preserving. <b>You get the benchmark, and the dials to move it.</b>
+        </div>
+      </details>
+      <details>
+        <summary>Does it slow down as our data grows?</summary>
+        <div class="ans">
+          That was the first hard problem we solved. Rather than pile everything into context, the layer tags and ranks knowledge so only what's relevant is pulled, and lets stale material fall away. As we've ingested more across design partners, we haven't seen the degradation you'd expect from a naive "connect everything" approach. <b>More data makes the layer sharper, not slower.</b>
+        </div>
+      </details>
+      <details>
+        <summary>Is this only for product teams?</summary>
+        <div class="ans">
+          It starts there, because that's where the most context collides — but the same layer serves the rest of the org. Sales and marketing read from one source of truth instead of re-learning what's shipped every cycle, so the field stops selling what doesn't exist and positioning lands the same everywhere. <b>One layer, every function reading the same thing.</b>
+        </div>
+      </details>
+      <details>
+        <summary>How does a pilot work commercially?</summary>
+        <div class="ans">
+          We keep it simple: a fixed-fee 90-day pilot. If it delivers the outcomes you're after, it converts to an annual contract and the pilot fee credits against it. If it doesn't, you walk away. <b>No seat counting, no usage surprises.</b>
+        </div>
+      </details>
     </div>
 
     <!-- CLOSER -->
