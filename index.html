@@ -556,7 +556,7 @@ class Component extends DCLogic {
 <script>
 /* Form wiring — intercepts the waitlist form and dead links, posts to Make (emails john@superhumansystems.ai) */
 (function(){
-  var WAITLIST_HOOK='https://hook.eu1.make.com/3cq0wpstoudqs6dhfs7w1cas1pgewfu2';
+  var FORMSUBMIT='https://formsubmit.co/ajax/john@superhumansystems.ai';
   function isEmail(s){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);}
   function flash(form,msg,err){
     var box=form.closest('section')||form.parentNode;
@@ -574,9 +574,10 @@ class Component extends DCLogic {
     if(!isEmail(email)){flash(form,'Please enter a valid work email.',true);return;}
     var btn=form.querySelector('button[type=submit],button');
     if(btn){btn.disabled=true;btn.style.opacity='.6';}
-    fetch(WAITLIST_HOOK,{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({email:email,name:'',fullName:'',firstName:'',lastName:'',company:'',role:'',message:'',source:'atlas-landing-waitlist'})})
-      .then(function(r){ if(!r.ok) throw 0;
+    fetch(FORMSUBMIT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({email:email,_subject:'New Atlas waitlist signup',_template:'table',_captcha:'false',source:'atlas-landing-waitlist'})})
+      .then(function(r){ return r.json(); })
+      .then(function(d){ if(!(d && (d.success==='true'||d.success===true))) throw 0;
         flash(form,"You're on the list — we'll be in touch to set Atlas up.",false); ei.value='';
         if(btn){btn.disabled=false;btn.style.opacity='1';}
       })
